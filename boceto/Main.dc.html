@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Portafolio Panel</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+html{background:#ececee}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;color:#18181b;background:#ececee;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+button:hover{background:#f4f4f5}
+a.nav:hover{background:#e9e9ec}
+.nav{border:1px solid transparent;color:#3f3f46}
+.nav-on{background:#fff;border-color:#e2e2e6;font-weight:500;color:#18181b}
+a.nav.nav-on:hover{background:#fff}
+a.dl:hover{background:#f4f4f5}
+a.ulink{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:#a1a1aa;text-underline-offset:5px}
+a.ulink:hover{text-decoration-color:#18181b}
+.tip{opacity:0;visibility:hidden;transform:translateY(-50%) translateX(-4px);pointer-events:none;transition:opacity .15s,transform .15s,visibility .15s}
+.tipwrap:hover .tip,.tipwrap:focus-within .tip{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0)}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+.row{transition:background .15s}
+.sheet{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .3s,box-shadow .3s,border-color .2s}
+.sheet:focus-visible{outline:2px solid #4a73ad;outline-offset:2px}
+.bobber{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.bobber:has(.sheet:hover),.bobber:has(.sheet:focus-visible){transform:translateY(-38px)}
+.sheet::after{content:"";position:absolute;left:0;right:0;top:100%;height:42px}
+@media (prefers-reduced-motion:reduce){.bobber{transition:none}}
+.row:hover{background:#fafafa}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;align-items:stretch;background:#ececee;min-height:100vh;align-content:stretch;font-size:13px;color:#18181b">
+
+<!-- SIDEBAR -->
+<aside style="flex:0 0 {{sideFlex}};align-self:stretch;min-height:100vh;box-sizing:border-box;background:#f3f3f5;border-right:1px solid #e2e2e6;padding:12px 10px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="display:flex;flex-direction:{{headDir}};align-items:center;justify-content:space-between;gap:10px;padding:2px 4px">
+<div style="display:flex;align-items:center;gap:9px;min-width:0">
+<span style="flex:0 0 22px;width:22px;height:22px;border-radius:5px;background:#111;display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="8" height="8" rx="1.5"></rect><path d="M4.5 6h3"></path></svg></span>
+<sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;font-weight:600;letter-spacing:-0.01em;white-space:nowrap">Portafolio</span></sc-if>
+</div>
+<button onClick="{{toggleSidebar}}" aria-label="{{toggleLabel}}" aria-expanded="{{expanded}}" style="flex:0 0 28px;width:28px;height:28px;border:0;background:transparent;border-radius:7px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2.5" width="12" height="11" rx="2"></rect><path d="M6 2.5v11M10.5 6.2L9 8l1.5 1.8"></path></svg></button>
+</div>
+
+<nav aria-label="Principal" style="display:flex;flex-direction:column;gap:4px">
+<a class="{{panelCls}}" href="#" onClick="{{goLibrary}}" aria-current="{{panelCurrent}}" aria-label="Panel" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="2"></rect><path d="M9 2.5v13M2.5 9h13"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Panel</span><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#6b6b73" stroke-width="1.4" aria-hidden="true"><path d="M3.5 1.5L7 5l-3.5 3.5"></path></svg></sc-if></a>
+<a class="{{aboutCls}}" href="#" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Acerca de mí</span></sc-if></a>
+<a class="{{cvCls}}" href="#" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Currículum</span></sc-if></a>
+<div class="tipwrap" style="position:relative">
+<a class="nav" href="#" onClick="{{noNav}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Otros proyectos</span></sc-if></a>
+<div id="tip-otros" role="tooltip" class="tip" style="position:absolute;left:calc(100% + 12px);top:50%;width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60">
+<span style="position:absolute;left:-5px;top:50%;width:8px;height:8px;margin-top:-4px;background:#fff;border-left:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>
+<div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Otros proyectos</div>
+<div style="font-size:12px;line-height:1.5;color:#52525b">Proyectos de ingeniería ajenos al fútbol: desarrollo de software y aplicaciones web, ciencia de datos, análisis de datos y big data.</div>
+</div>
+</div>
+</nav>
+
+<div style="flex:1;min-height:20px"></div>
+
+<sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:11px;padding:2px 4px 4px">
+<div style="position:relative;display:flex;justify-content:center;align-items:center;height:94px">
+<div style="position:absolute;left:-12px;right:-12px;top:50%;height:1px;background:#d4d4d8"></div>
+<div style="position:relative;border-radius:50%;background:#f3f3f5;padding:6px">
+<img src="/_blob/148f43e153d88033311d2499858ee4f0" alt="Foto de Cristian David Miranda Garces" style="display:block;width:78px;height:78px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:3px solid #fff;box-shadow:0 0 0 1px #d4d4d8">
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="font-size:13.5px;font-weight:600;line-height:1.3;letter-spacing:-0.01em;color:#18181b">Cristian David Miranda Garces</div>
+<div style="display:flex;flex-direction:column;gap:2px;font-size:12px;line-height:1.45;color:#52525b"><span style="font-weight:500;color:#3f3f46">Ing de sistemas</span><span>Data Analyst</span></div>
+<div style="font-size:12px;line-height:1.45;color:#52525b">Córdoba - Colombia</div>
+</div>
+<div style="display:flex;justify-content:center;gap:6px;padding-top:2px">
+<a class="nav" href="https://github.com/Cmirandagarces33" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Cristian" style="width:32px;height:32px;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+<a class="nav" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cmirandagarces33@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Enviar correo a Cristian" style="width:32px;height:32px;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><path d="M22 6l-10 7L2 6"></path></svg></a>
+<a class="nav" href="https://www.linkedin.com/in/cristianmirandaa716/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Cristian" style="width:32px;height:32px;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{collapsed}}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;justify-content:center"><img src="/_blob/148f43e153d88033311d2499858ee4f0" alt="Foto de Cristian David Miranda Garces" style="display:block;width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:2px solid #fff;box-shadow:0 0 0 1px #d4d4d8"></div>
+</sc-if>
+</aside>
+
+<!-- MAIN -->
+<main style="flex:999 1 640px;min-width:0;box-sizing:border-box;padding:28px 24px 28px;display:flex;flex-direction:column;gap:16px">
+
+<header style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
+<h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:600;letter-spacing:-0.02em">{{pageTitle}}</h1>
+</header>
+
+<sc-if value="{{isLibrary}}" hint-placeholder-val="{{ true }}">
+<!-- TOURNAMENT COLUMNS -->
+<section aria-label="Torneos" style="box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:16px;display:flex;flex-wrap:wrap;align-items:stretch;gap:16px;min-height:340px">
+<div aria-live="polite" style="flex:1 1 100%;box-sizing:border-box;background:#fafafa;border:1px solid #e2e2e6;border-radius:10px;padding:12px;min-height:136px;display:flex;align-items:center;gap:16px">
+<sc-if value="{{noPreview}}" hint-placeholder-val="{{ true }}"><div style="flex:1;text-align:center;font-size:12.5px;color:#52525b">Pasa el cursor sobre un artículo para ver su vista previa.</div></sc-if>
+<sc-if value="{{hasPreview}}" hint-placeholder-val="{{ false }}">
+<div style="flex:0 0 112px;width:112px;height:112px;box-sizing:border-box;border-radius:8px;border:1px solid #e2e2e6;background:{{preview.cover}};display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">Portada</div>
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap"><span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">{{preview.title}}</span><sc-for list="{{preview.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 9px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:2px 9px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></div>
+<div style="font-size:13px;line-height:1.5;color:#3f3f46">{{preview.intro}}</div>
+<div style="font-size:11px;color:#52525b">Clic en la hoja para abrir el artículo</div>
+</div>
+</sc-if>
+</div>
+
+<div style="flex:1 1 560px;min-width:0;display:flex;flex-wrap:nowrap;align-items:stretch;border:1px solid #e2e2e6;border-radius:10px;overflow-x:auto;overflow-y:hidden;background:#fff">
+<sc-for list="{{columns}}" as="c" hint-placeholder-count="5">
+<div style="flex:1 1 0;min-width:160px;box-sizing:border-box;display:flex;flex-direction:column;border-right:{{c.divider}}">
+<div style="padding:12px;background:#fafafa;border-bottom:1px solid #e2e2e6">
+<div style="display:flex;align-items:center;gap:9px;min-width:0">
+<span style="flex:0 0 28px;width:28px;height:28px;border-radius:7px;background:{{c.tileBg}};color:{{c.color}};display:inline-flex;align-items:center;justify-content:center">
+<sc-if value="{{c.hasLogo}}" hint-placeholder-val="{{ true }}"><img src="{{c.logo}}" alt="" style="display:block;width:26px;height:26px;object-fit:contain"></sc-if>
+<sc-if value="{{c.isPlayer}}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.6-4 3.8-6 8-6s7.4 2 8 6"></path></svg></sc-if>
+</span>
+<span style="flex:1;min-width:0;font-size:14px;font-weight:600;letter-spacing:-0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{c.name}}</span>
+<span style="flex:0 0 auto;min-width:22px;box-sizing:border-box;text-align:center;font-size:12px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:6px;padding:2px 7px" aria-label="{{c.countLabel}}">{{c.count}}</span>
+</div>
+</div>
+<div class="stackbox" style="position:relative;flex:1;min-height:{{c.bodyH}};overflow:hidden">
+<sc-if value="{{c.empty}}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:0;right:0;top:90px;text-align:center;font-size:12px;color:#6b6b73;padding:0 12px">Sin artículos aún</div></sc-if>
+<sc-for list="{{c.cards}}" as="k" hint-placeholder-count="2">
+<div class="bobber" style="position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:{{k.z}}">
+<button class="sheet" onClick="{{k.onOpen}}" onMouseEnter="{{k.onHover}}" onFocus="{{k.onHover}}" aria-label="{{k.label}}" style="position:absolute;left:10px;width:min(220px,calc(100% - 44px));top:{{k.top}};height:210px;box-sizing:border-box;display:flex;flex-direction:column;padding:6px 10px 10px;margin:0;text-align:left;font-family:inherit;color:#18181b;background:#fff;border:1px solid {{k.border}};border-radius:10px;cursor:pointer;transform-origin:0 0;transform:{{k.transform}};opacity:{{k.opacity}};pointer-events:{{k.events}};box-shadow:{{k.shadow}}">
+<span style="display:block;flex:0 0 auto;font-size:11.5px;font-weight:600;line-height:1.25;letter-spacing:-0.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{k.title}}</span>
+<span style="display:block;flex:0 0 auto;margin-top:3px;font-size:10.5px;line-height:1.4;color:#52525b;max-height:30px;overflow:hidden">{{k.intro}}</span>
+<span style="flex:1 1 auto;min-height:70px;display:flex;align-items:center;justify-content:center;margin-top:8px;border-radius:7px;border:1px solid #e2e2e6;background:{{k.cover}};font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">Portada</span>
+<span style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;flex:0 0 auto;max-width:100%"><sc-for list="{{k.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 8px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:2px 8px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></span>
+</button>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+<aside aria-label="Otros torneos" style="flex:0 0 172px;box-sizing:border-box;background:#fafafa;border:1px solid #e2e2e6;border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0">
+<div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#3f3f46;font-weight:500;padding:2px 4px 6px">Otros torneos</div>
+<div style="display:flex;flex-direction:column;gap:2px">
+<sc-for list="{{legend}}" as="l" hint-placeholder-count="5">
+<button onClick="{{l.onAdd}}" aria-label="{{l.addLabel}}" style="display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:5px 6px;border:0;background:transparent;border-radius:8px;text-align:left;font-size:12px;font-weight:500;color:#18181b">
+<span style="flex:0 0 22px;width:22px;height:22px;border-radius:6px;background:{{l.tileBg}};color:{{l.color}};display:inline-flex;align-items:center;justify-content:center">
+<sc-if value="{{l.hasLogo}}" hint-placeholder-val="{{ true }}"><img src="{{l.logo}}" alt="" style="display:block;width:20px;height:20px;object-fit:contain"></sc-if>
+<sc-if value="{{l.isPlayer}}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.6-4 3.8-6 8-6s7.4 2 8 6"></path></svg></sc-if>
+</span>
+<span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{l.name}}</span>
+<span style="flex:0 0 auto;min-width:22px;box-sizing:border-box;text-align:center;font-size:11px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:6px;padding:1px 6px">{{l.count}}</span>
+</button>
+</sc-for>
+</div>
+<div style="margin-top:auto;padding:8px 4px 2px;font-size:10.5px;line-height:1.4;color:#52525b">Haz clic en un torneo para agregarlo como primera columna.</div>
+</aside>
+</section>
+
+<!-- RECENT ACTIVITY -->
+<section aria-labelledby="recent-title" style="background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:14px 18px 8px;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+<div id="recent-title" style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.06em;color:#3f3f46;font-weight:500;text-transform:uppercase"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 7h2.3l1.4-3.5 2.6 7L9.2 7h3.3"></path></svg>Recent Activity<span style="width:6px;height:6px;border-radius:50%;background:#6f99cf;box-shadow:0 0 0 3px #e8f0fb"></span></div>
+<label style="display:flex;align-items:center;gap:9px;padding:6px 12px;border:1px solid #e2e2e6;border-radius:8px;background:#fafafa;color:#52525b;min-width:220px;box-sizing:border-box"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5L14 14"></path></svg><input type="search" value="{{query}}" onInput="{{onSearch}}" placeholder="Buscar por palabra…" aria-label="Buscar artículos por palabra" style="border:0;background:transparent;outline:none;flex:1;min-width:0;font-family:inherit;font-size:13px;color:#18181b"></label>
+</div>
+
+<div style="overflow-x:auto;border-top:1px solid #ececee">
+<div role="table" aria-label="Artículos recientes" style="min-width:1060px;font-size:13px">
+<div role="row" style="display:grid;grid-template-columns:minmax(210px,1.5fr) minmax(190px,1.2fr) minmax(230px,1.5fr) minmax(140px,1fr) minmax(120px,0.9fr) minmax(130px,1fr);align-items:center;color:#52525b;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;border-bottom:1px solid #ececee">
+<div role="columnheader" style="font-weight:500;padding:12px 10px">Nombre</div>
+<div role="columnheader" style="font-weight:500;padding:12px 10px">Periodo</div>
+<div role="columnheader" style="font-weight:500;padding:12px 10px">Etiqueta</div>
+<div role="columnheader" style="font-weight:500;padding:12px 10px">Publicado</div>
+<div role="columnheader" style="font-weight:500;padding:12px 10px">Lenguajes</div>
+<div role="columnheader" style="font-weight:500;padding:12px 10px">Tipo</div>
+</div>
+<sc-for list="{{articleRows}}" as="r" hint-placeholder-count="5">
+<div role="row" class="row" style="height:52px;box-sizing:border-box;display:grid;grid-template-columns:minmax(210px,1.5fr) minmax(190px,1.2fr) minmax(230px,1.5fr) minmax(140px,1fr) minmax(120px,0.9fr) minmax(130px,1fr);align-items:center;border-bottom:1px solid #f3f3f5">
+<div role="cell" style="padding:0 10px;font-weight:500;color:#18181b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{r.name}}</div>
+<div role="cell" style="padding:0 10px;color:#3f3f46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{r.period}}</div>
+<div role="cell" style="padding:0 10px;color:#18181b;display:flex;flex-wrap:nowrap;gap:6px 16px;overflow:hidden"><sc-for list="{{r.tags}}" as="t" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:7px;white-space:nowrap"><i style="width:8px;height:8px;border-radius:50%;background:{{t.color}}"></i>{{t.label}}</span></sc-for></div>
+<div role="cell" style="padding:0 10px;color:#52525b;white-space:nowrap">{{r.date}}</div>
+<div role="cell" style="padding:0 10px;color:#52525b">{{r.langs}}</div>
+<div role="cell" style="padding:0 10px;color:#52525b">{{r.type}}</div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}"><div style="padding:22px 10px;text-align:center;color:#52525b;font-size:13px">No hay artículos que coincidan con la búsqueda.</div></sc-if>
+</div>
+</section>
+
+</sc-if>
+
+<sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
+<!-- ABOUT -->
+<section aria-label="Acerca de mí" style="box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:14px">
+<div style="box-sizing:border-box;background:#fafafa;border:1px solid #e2e2e6;border-radius:10px;padding:34px 40px 38px;display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start">
+<div style="flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<h2 style="margin:0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-0.02em">¡Hola! Soy Cristian David.</h2>
+<p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">Bienvenido a mi espacio donde comparto mis proyectos, experiencias y me doy a conocer.<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10.5h-8.5L7 19.5V16H4z"></path><circle cx="8.5" cy="10.8" r="0.6" stroke="#e0453a" fill="#e0453a"></circle><circle cx="12" cy="10.8" r="0.6" stroke="#e0453a" fill="#e0453a"></circle><circle cx="15.5" cy="10.8" r="0.6" stroke="#e0453a" fill="#e0453a"></circle></g></svg></p>
+</div>
+<p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">Desde chico me gustaba lo relacionado a la tecnología<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="5" width="15" height="10.5" rx="1.6"></rect><path d="M2.5 19h19"></path><path d="M8.5 8.8l2.4 1.9-2.4 1.9" stroke="#e0453a"></path><path d="M12.6 12.7h2.6" stroke="#e0453a"></path></g></svg> y eso me encaminó a estudiar la carrera de Ingeniería de Sistemas y Telecomunicaciones<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18.61 10.02 L21.05 10.35 L21.05 13.65 L18.61 13.98 L18.07 15.28 L19.57 17.23 L17.23 19.57 L15.28 18.07 L13.98 18.61 L13.65 21.05 L10.35 21.05 L10.02 18.61 L8.72 18.07 L6.77 19.57 L4.43 17.23 L5.93 15.28 L5.39 13.98 L2.95 13.65 L2.95 10.35 L5.39 10.02 L5.93 8.72 L4.43 6.77 L6.77 4.43 L8.72 5.93 L10.02 5.39 L10.35 2.95 L13.65 2.95 L13.98 5.39 L15.28 5.93 L17.23 4.43 L19.57 6.77 L18.07 8.72 Z"></path><circle cx="12" cy="12" r="2.7" stroke="#e0453a"></circle></g></svg> en la Universidad de Córdoba. Otra pasión que comparto es el fútbol<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8l3.2 2.3-1.2 3.8h-4L8.8 10.3z" stroke="#e0453a"></path><path d="M12 8V3.2M15.2 10.3l4.4-1.4M14 14.1l2.7 3.6M10 14.1l-2.7 3.6M8.8 10.3L4.4 8.9"></path></g></svg>; soy apasionado a este deporte desde muy pequeño y siempre me he encaminado por la ciencia y análisis detrás de este. Siempre me gustó jugar y organizar plantilla y estrategias, sacar conclusiones y aprender de cada victoria y derrota de mi equipo favorito, el Barcelona<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v8c0 4-3 7-7 9-4-2-7-5-7-9z"></path><path d="M9.4 6.2v10" stroke="#3b6fd0" stroke-width="2.6"></path><path d="M14.6 6.2v10" stroke="#e0453a" stroke-width="2.6"></path></g></svg>.</p>
+<p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">En la universidad hice <a class="ulink" href="#" onClick="{{goCv}}">el diplomado de aprendizaje automatizado</a> donde aprendí de las bases del machine learning<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8.5" width="14" height="10" rx="2.8"></rect><path d="M12 8.5V5"></path><circle cx="12" cy="3.9" r="1.2" stroke="#e0453a" fill="#e0453a"></circle><path d="M3 12.5v3.2M21 12.5v3.2"></path><circle cx="9.4" cy="12.8" r="0.9" stroke="#e0453a" fill="#e0453a"></circle><circle cx="14.6" cy="12.8" r="0.9" stroke="#e0453a" fill="#e0453a"></circle><path d="M9.5 16h5"></path></g></svg> y análisis de datos con Python, R y SQL, orientados al tratamiento de datos y al uso de herramientas de visualización de datos<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"></path><rect x="7" y="12.5" width="2.6" height="5.5" rx="0.8"></rect><rect x="11.3" y="8.5" width="2.6" height="9.5" rx="0.8" stroke="#e0453a"></rect><rect x="15.6" y="5.5" width="2.6" height="12.5" rx="0.8"></rect></g></svg>. Con la llegada de la IA, mi intención actual es combinar esas dos facetas que más me gustan, darle una utilidad para que vean <a class="ulink" href="#" onClick="{{goLibrary}}">mi trabajo</a>, y que conozcan mi punto de vista y mis conclusiones sobre temas de este hermoso deporte.</p>
+<p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">Mi visión a futuro es aprender y trabajar relacionado a mis dos pasiones. Por eso, he estado actualizándome y aprendiendo los nuevos conocimientos sobre la IA<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.9 5.4 5.4 1.9-5.4 1.9L11 18.1l-1.9-5.4L3.7 10.8l5.4-1.9z"></path><path d="M18.5 15.5v4.5M16.25 17.75h4.5" stroke="#e0453a"></path></g></svg>, automatización, creación de RAG y uso de agentes. Mi gran meta a corta distancia es conseguir una estabilidad económica que me ayude a crecer de forma exponencial como profesional y humano<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3 2.1 4.2 5.6 4.2 9.6v3.4H7.8v-3.4c0-4 1.2-7.5 4.2-9.6z"></path><path d="M7.8 12.5L4.8 16v2.4l3-1.6M16.2 12.5l3 3.5v2.4l-3-1.6"></path><circle cx="12" cy="9.2" r="1.6" stroke="#e0453a"></circle><path d="M10.4 18.2L12 21.8l1.6-3.6" stroke="#e0453a"></path></g></svg>. Esta es información sobre mí.</p>
+</div>
+<div aria-hidden="true" style="position:relative;flex:0 0 300px;width:300px;height:570px;margin:0 auto">
+<img src="/_blob/68dc56452e33de0cc06b8b7e982a905a" alt="" style="position:absolute;left:12px;top:4px;width:268px;height:auto;transform:rotate(-3deg);filter:drop-shadow(0 4px 6px rgba(24,24,27,0.28)) drop-shadow(0 1px 1px rgba(24,24,27,0.22))">
+<img src="/_blob/09f92bf8de083b03df05e1233436ab2a" alt="" style="position:absolute;left:34px;top:168px;width:252px;height:auto;transform:rotate(2.5deg);filter:drop-shadow(0 4px 6px rgba(24,24,27,0.28)) drop-shadow(0 1px 1px rgba(24,24,27,0.22))">
+<img src="/_blob/ae1c08b4dad3cd669521db3f8867586a" alt="" style="position:absolute;left:4px;top:358px;width:132px;height:auto;transform:rotate(-8deg);filter:drop-shadow(0 4px 6px rgba(24,24,27,0.28)) drop-shadow(0 1px 1px rgba(24,24,27,0.22))">
+<img src="/_blob/eabebaa7ec2c2f41fdf3647fc3bad1ae" alt="" style="position:absolute;left:158px;top:346px;width:122px;height:auto;transform:rotate(6deg);filter:drop-shadow(0 4px 6px rgba(24,24,27,0.28)) drop-shadow(0 1px 1px rgba(24,24,27,0.22))">
+<img src="/_blob/63d1e12f541a9c73808ec3a7e8bee04d" alt="" style="position:absolute;left:84px;top:452px;width:120px;height:auto;transform:rotate(-4deg);filter:drop-shadow(0 4px 6px rgba(24,24,27,0.28)) drop-shadow(0 1px 1px rgba(24,24,27,0.22))">
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{isCv}}" hint-placeholder-val="{{ false }}">
+<!-- CV VIEWER -->
+<section aria-label="Visor de currículum" style="box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+<div role="group" aria-label="Idioma del currículum" style="display:inline-flex;gap:2px;padding:3px;background:#ececee;border-radius:10px">
+<button onClick="{{showEs}}" aria-pressed="{{esPressed}}" style="padding:6px 16px;border-radius:8px;border:1px solid {{esBorder}};background:{{esBg}};color:{{esColor}};font-size:13px;font-weight:{{esWeight}}">Español</button>
+<button onClick="{{showEn}}" aria-pressed="{{enPressed}}" style="padding:6px 16px;border-radius:8px;border:1px solid {{enBorder}};background:{{enBg}};color:{{enColor}};font-size:13px;font-weight:{{enWeight}}">English</button>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<a class="dl" href="/_blob/ee6b940125d371aba9e650477471accf" download="Cristian_Miranda_CV_ES.pdf" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:#fff;border:1px solid #e2e2e6;border-radius:8px;font-size:13px;font-weight:500;color:#18181b"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 7L8 10.5 11.5 7M3 13.5h10"/></svg>Descargar español</a>
+<a class="dl" href="/_blob/ba86306497e5ae0a749df14878df3f9b" download="Cristian_Miranda_CV_EN.pdf" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:#fff;border:1px solid #e2e2e6;border-radius:8px;font-size:13px;font-weight:500;color:#18181b"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 7L8 10.5 11.5 7M3 13.5h10"/></svg>Descargar inglés</a>
+</div>
+</div>
+<div style="box-sizing:border-box;background:#fafafa;border:1px solid #e2e2e6;border-radius:10px;padding:16px;min-height:420px;max-height:calc(100vh - 230px);overflow:auto;display:flex;justify-content:center;align-items:flex-start">
+<div style="width:100%;max-width:820px;background:#fff;border:1px solid #e2e2e6;border-radius:6px;box-shadow:0 6px 20px rgba(24,24,27,0.08);overflow:hidden">
+<img src="/_blob/c021554e32048dc86e5805478286abfd" alt="Currículum de Cristian David Miranda Garcés en español, página 1 de 1" style="display:{{esDisplay}};width:100%;height:auto">
+<img src="/_blob/80c88de46994c5ad91a5be3ee2832c6a" alt="Résumé of Cristian David Miranda Garcés in English, page 1 of 1" style="display:{{enDisplay}};width:100%;height:auto">
+</div>
+</div>
+</section>
+</sc-if>
+</main>
+
+<sc-if value="{{drawerOpen}}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:0;top:0;right:0;bottom:0;z-index:50;display:flex;justify-content:flex-end">
+<button onClick="{{closeDrawer}}" aria-label="Cerrar artículo" style="position:absolute;left:0;top:0;right:0;bottom:0;width:100%;height:100%;border:0;padding:0;margin:0;background:rgba(24,24,27,0.28);cursor:default"></button>
+<aside role="dialog" aria-label="Artículo" style="position:relative;width:min(440px,100%);height:100%;box-sizing:border-box;background:#fff;border-left:1px solid #e2e2e6;box-shadow:-12px 0 32px rgba(24,24,27,0.12);padding:20px;display:flex;flex-direction:column;gap:14px;overflow:auto">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{drawer.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:3px 10px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:3px 10px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></span>
+<button onClick="{{closeDrawer}}" aria-label="Cerrar" style="width:32px;height:32px;border:1px solid #e2e2e6;background:#fff;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"></path></svg></button></div>
+<div style="height:190px;box-sizing:border-box;border-radius:10px;border:1px solid #e2e2e6;background:{{drawer.cover}};display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">Portada</div>
+<h2 style="margin:0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-0.02em">{{drawer.title}}</h2>
+<p style="margin:0;font-size:14px;line-height:1.55;color:#3f3f46">{{drawer.intro}}</p>
+<p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Aquí irá el contenido del artículo.</p>
+</aside>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1020}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const grey = '#a1a1aa';
+    const red = '#e0453a';
+    const collapsed = !!(this.state && this.state.collapsed);
+    const query = (this.state && this.state.query) || '';
+    const view = (this.state && this.state.view) || 'library';
+    const lang = (this.state && this.state.lang) || 'es';
+    const go = (v) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ view: v }); };
+    const seg = (on) => on
+      ? { bg: '#ffffff', border: '#e2e2e6', color: '#18181b', weight: '600' }
+      : { bg: 'transparent', border: 'transparent', color: '#52525b', weight: '500' };
+    const sEs = seg(lang === 'es');
+    const sEn = seg(lang === 'en');
+    const T = [
+      { id: 'pl', name: 'Premier League', color: '#7b5ad1', logo: '/_blob/22d76fe2d2a4b4b2cbf5720ab3f48b21', kind: 'league', count: 0 },
+      { id: 'pa', name: 'Primera A', color: '#2f9e5b', logo: '/_blob/5b29cb63c2d87ad8a3b91832f9102dc1', kind: 'league', count: 0 },
+      { id: 'cl', name: 'Champions League', color: '#3b8fd9', logo: '/_blob/7e561425660714168aa0bda9e0d7fb5a', kind: 'cup', count: 1 },
+      { id: 'll', name: 'LaLiga', color: '#e0453a', logo: '/_blob/10ebe7788d20399ffcb60fc112ddc694', kind: 'league', count: 1 },
+      { id: 'bl', name: 'Bundesliga', color: '#d9602b', logo: '/_blob/e2025105ab3ee1a3fecce7bd14c8c3ae', kind: 'league', count: 0 },
+      { id: 'sa', name: 'Serie A', color: '#2f6fd0', logo: '/_blob/0e8716634421760bdc9f9a637ce3ef3f', kind: 'league', count: 0 },
+      { id: 'mu', name: 'Mundial', color: '#b8892b', logo: '/_blob/76d85c75d7797db12a71bc621a746e2b', kind: 'cup', count: 1 },
+      { id: 'l1', name: 'Ligue 1', color: '#4a5a9a', logo: '/_blob/017499e82658c4f772d09f3f738dcaa9', kind: 'league', count: 1 },
+      { id: 'el', name: 'Europa League', color: '#e07a1f', logo: '/_blob/db1b2636b1c209fece69d1952b7600c3', kind: 'cup', count: 0 },
+      { id: 'cb', name: 'Copa Libertadores', color: '#8a6d2f', logo: '/_blob/d5d0827899cedd4099fc155c5deb8304', kind: 'cup', count: 0 },
+      { id: 'jg', name: 'Jugadores', color: '#71717a', kind: 'player', count: 0 }
+    ];
+    const ARTICLES = [
+      { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido con Python, R.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
+      { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico con Python, SQL.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
+      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python, SQL.', t: ['mu'], period: '2026', date: '2026-07-01', langs: 'Python, SQL', type: 'Modelo predictivo' },
+      { id: 's1', title: 'Artículo de ejemplo 1', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
+      { id: 's2', title: 'Artículo de ejemplo 2', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
+      { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador con Python.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
+      { id: 's4', title: 'Raphinha balón de oro', intro: 'Perfil de jugador con Python, Power BI.', t: ['jg', 'll'], player: 'Raphinha', period: '2024 - 2025', date: '2026-08-15', langs: 'Python, Power BI', type: 'Perfil de jugador' }
+    ];
+    T.forEach((t) => { t.count = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).length; });
+    const hover = (this.state && this.state.hover) || null;
+    const opened = (this.state && this.state.open) || null;
+    const MAX = 5;
+    const visible = (this.state && this.state.visible) || ['cl', 'mu', 'll', 'pl', 'bl'];
+    const byId = {};
+    T.forEach((t) => { byId[t.id] = t; });
+    const MON = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
+    const fmt = (iso) => { const d = iso.split('-'); return d[2] + ' de ' + MON[Number(d[1]) - 1] + ' de ' + d[0]; };
+    const recent = ARTICLES.filter((a) => a.date).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
+      name: a.title, period: a.period, tags: a.t.map((id) => ({ label: byId[id].name, color: byId[id].color })), date: fmt(a.date), langs: a.langs, type: a.type
+    }));
+    const q = query.trim().toLowerCase();
+    const rows = q ? recent.filter((r) => [r.name, r.period, r.date, r.langs, r.type, r.tags.map((t) => t.label).join(' ')].join(' ').toLowerCase().includes(q)) : recent;
+    const shape = (t) => ({
+      id: t.id, name: t.name, count: t.count, color: t.color, tint: t.color + '22', logo: t.logo || '', hasLogo: !!t.logo, tileBg: t.logo ? 'transparent' : t.color + '22',
+      isCup: t.kind === 'cup', isLeague: t.kind === 'league', isPlayer: t.kind === 'player',
+      countLabel: t.count + (t.count === 1 ? ' artículo' : ' artículos'),
+      addLabel: 'Agregar ' + t.name + ' como primera columna'
+    });
+    const artOf = (id) => ARTICLES.filter((x) => x.id === id)[0];
+    const coverOf = (c) => 'repeating-linear-gradient(135deg, ' + c + '1f 0px, ' + c + '1f 8px, ' + c + '0d 8px, ' + c + '0d 16px)';
+    const chipOf = (a, tid) => {
+      const t = byId[tid];
+      return t.kind === 'player' ? { isPlayer: true, isTourney: false, label: a.player || t.name, color: t.color } : { isPlayer: false, isTourney: true, label: t.name, color: t.color };
+    };
+    const infoOf = (id, tid) => {
+      const a = artOf(id);
+      const t = byId[tid];
+      const all = a.t.map((x) => chipOf(a, x));
+      const own = chipOf(a, tid);
+      const extra = t.kind !== 'player' && a.player ? [{ isPlayer: true, isTourney: false, label: a.player, color: '#71717a' }] : [];
+      return { title: a.title, intro: a.intro, tag: t.name, color: t.color, cover: coverOf(t.color), chips: all, cardChips: [own].concat(extra) };
+    };
+    const cardsFor = (t) => {
+      const ids = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).map((a) => a.id);
+      const n = ids.length;
+      const step = n > 1 ? Math.max(18, Math.min(26, Math.floor(80 / (n - 1)))) : 0;
+      const dx = n > 1 ? Math.max(4, Math.min(10, Math.floor(30 / (n - 1)))) : 0;
+      const top = (n - 1) * step + 44;
+      return {
+        n: n,
+        bodyH: n === 0 ? 220 : top + 210 + 62,
+        cards: ids.map((id, pos) => {
+          const inf = infoOf(id, t.id);
+          const isHover = !!hover && hover.id === id && hover.tid === t.id;
+          return {
+            ...inf,
+            chips: inf.cardChips,
+            id: id,
+            top: top + 'px',
+            transform: 'translate(' + (pos * dx) + 'px,' + (-pos * step) + 'px) skewY(14deg)',
+            z: n - pos,
+            opacity: '1',
+            events: 'auto',
+            border: isHover ? '#4a73ad' : (pos === 0 ? '#9a9aa3' : '#d4d4d8'),
+            shadow: pos === 0 ? '0 10px 22px rgba(24,24,27,0.10)' : 'none',
+            label: 'Abrir artículo: ' + inf.title,
+            onHover: () => this.setState({ hover: { id: id, tid: t.id } }),
+            onOpen: () => this.setState({ open: { id: id, tid: t.id } })
+          };
+        })
+      };
+    };
+    const columns = visible.map((id, i) => {
+      const t = byId[id];
+      const info = cardsFor(t);
+      return { ...shape(t), cards: info.cards, empty: info.n === 0, bodyH: info.bodyH + 'px', divider: i < visible.length - 1 ? '1px solid #e2e2e6' : '0' };
+    });
+    const blank = { title: '', intro: '', tag: '', color: '#a1a1aa', cover: 'none', chips: [], cardChips: [] };
+    const pv = hover ? infoOf(hover.id, hover.tid) : null;
+    const dr = opened ? infoOf(opened.id, opened.tid) : null;
+    const legend = T.filter((t) => visible.indexOf(t.id) === -1).map((t) => ({
+      ...shape(t),
+      onAdd: () => this.setState({ visible: [t.id].concat(visible).slice(0, MAX) })
+    }));
+    return {
+      isLibrary: view === 'library',
+      isCv: view === 'cv',
+      isAbout: view === 'about',
+      aboutCls: view === 'about' ? 'nav nav-on' : 'nav',
+      aboutCurrent: view === 'about' ? 'page' : 'false',
+      goAbout: go('about'),
+      pageTitle: view === 'cv' ? 'Currículum' : (view === 'about' ? 'Acerca de mí' : 'Biblioteca de artículos'),
+      panelCls: view === 'library' ? 'nav nav-on' : 'nav',
+      cvCls: view === 'cv' ? 'nav nav-on' : 'nav',
+      panelCurrent: view === 'library' ? 'page' : 'false',
+      cvCurrent: view === 'cv' ? 'page' : 'false',
+      goLibrary: go('library'),
+      noNav: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+      goCv: go('cv'),
+      showEs: () => this.setState({ lang: 'es' }),
+      showEn: () => this.setState({ lang: 'en' }),
+      esPressed: lang === 'es' ? 'true' : 'false',
+      enPressed: lang === 'en' ? 'true' : 'false',
+      esBg: sEs.bg, esBorder: sEs.border, esColor: sEs.color, esWeight: sEs.weight,
+      enBg: sEn.bg, enBorder: sEn.border, enColor: sEn.color, enWeight: sEn.weight,
+      esDisplay: lang === 'es' ? 'block' : 'none',
+      enDisplay: lang === 'en' ? 'block' : 'none',
+      expanded: !collapsed,
+      collapsed: collapsed,
+      sideFlex: collapsed ? '0 0 64px' : '0 0 200px',
+      headDir: collapsed ? 'column' : 'row',
+      navJustify: collapsed ? 'center' : 'flex-start',
+      toggleLabel: collapsed ? 'Expandir barra lateral' : 'Recoger barra lateral',
+      toggleSidebar: () => this.setState({ collapsed: !collapsed }),
+      columns: columns,
+      preview: pv || blank,
+      hasPreview: !!pv,
+      noPreview: !pv,
+      drawer: dr || blank,
+      drawerOpen: !!dr,
+      closeDrawer: () => this.setState({ open: null }),
+      legend: legend,
+      articleRows: rows,
+      noResults: rows.length === 0,
+      query: query,
+      onSearch: (e) => this.setState({ query: e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>
