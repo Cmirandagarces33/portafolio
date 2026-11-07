@@ -16,11 +16,10 @@ Documento de referencia para cualquier chat o agente que trabaje en este proyect
 ## Privacidad
 
 El sitio es público. El repositorio es privado, pero eso no protege lo que se publica.
-- **Sí se muestra:** nombre, rol, ciudad (Cereté, Córdoba), correo y enlaces a perfiles profesionales.
-- **Nunca se publica:** número de teléfono completo, WhatsApp, dirección de casa, número de documento ni fecha de nacimiento completa.
-- **Currículum:** el PDF original contiene el teléfono de Cristian y los datos de contacto de tres referencias personales (terceros, incluida su madre). Esos datos no deben quedar expuestos.
-- **Por decidir:** según el historial, el boceto actual deja visibles los primeros 6 dígitos de los teléfonos y los correos, tanto de Cristian como de sus referencias, y el currículum censurado es descargable por cualquiera. Esto contradice la regla anterior y falta decidirlo (ver las opciones en `Historial_Portafolio.md`, sección 8).
-- Los currículums originales no se guardan en este repositorio.
+- **Sí se muestra:** nombre, foto, rol, ciudad, correo y enlaces a perfiles profesionales (GitHub, LinkedIn).
+- **Nunca se publica:** número de teléfono completo (solo se ven los 6 primeros dígitos, como en el boceto), WhatsApp, dirección de casa, número de documento ni fecha de nacimiento completa.
+- **Currículum (decisión de Cristian, 6 de noviembre de 2026):** se publica el currículum del boceto tal cual: teléfonos con los últimos 4 dígitos tapados y correos de las referencias visibles. Cristian asume esta decisión. Las referencias son terceras personas: si alguna pide que se retire su dato, se quita.
+- El currículum original sin censurar nunca se guarda en este repositorio. Solo se usan los archivos ya censurados del boceto.
 
 ## Flujo de trabajo
 
@@ -32,8 +31,10 @@ El sitio es público. El repositorio es privado, pero eso no protege lo que se p
 
 ## Estado del repositorio
 
-- `public/index.html`, `public/styles.css` y `public/app.js` son una **maqueta provisional** de estructura, con contenido de ejemplo. Será reemplazada por el boceto que Cristian entregará en un `.zip`.
-- El boceto se construyó como un artefacto de Claude Design (formato propio de esa plataforma). Al recibir el `.zip` hay que definir cómo se convierte en un sitio estático normal que Cloudflare pueda servir.
+- `public/index.html`, `public/styles.css` y `public/app.js` son una **maqueta provisional** oscura con contenido de ejemplo. Se descarta: el boceto real es claro y distinto.
+- El boceto llegó como `.zip` (6 de noviembre de 2026). Su página, `Main.dc.html`, es un Design Component de Claude: usa etiquetas propias y carga un `support.js` que **no viene en el zip**, así que no abre en un navegador normal. Hay que **reconstruirla** como HTML, CSS y JavaScript estáticos fieles al boceto.
+- Los datos de artículos y etiquetas irán en un archivo JSON aparte, para añadir artículos sin tocar el diseño. Más adelante lo podrá escribir el lector de cuadernos.
+- El `.zip` no se guarda en el repositorio. Los assets (logos, foto, stickers y currículum censurado) se copian a `public/assets/`.
 
 ## Primer artículo: Predicción del Mundial 2026
 

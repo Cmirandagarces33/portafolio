@@ -14,9 +14,9 @@ Portafolio de Cristian David Miranda Garcés, Ingeniero de Sistemas, sobre anál
 
 ## Privacidad (el sitio es público)
 
-- No publicar teléfono completo, WhatsApp, dirección de casa, documento de identidad ni fecha de nacimiento completa.
-- No publicar datos de contacto de las referencias del currículum (son terceros).
-- No subir al repositorio el currículum original.
+- No publicar teléfono completo (solo los 6 primeros dígitos, como en el boceto), WhatsApp, dirección de casa, documento de identidad ni fecha de nacimiento completa.
+- El currículum del boceto se publica tal cual (teléfonos parciales y correos de referencias visibles): es decisión de Cristian. Ver `CONTEXTO.md`.
+- No subir al repositorio el currículum original sin censurar.
 
 ## Diseño
 
