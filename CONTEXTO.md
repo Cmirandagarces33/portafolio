@@ -31,10 +31,17 @@ El sitio es público. El repositorio es privado, pero eso no protege lo que se p
 
 ## Estado del repositorio
 
-- `public/index.html`, `public/styles.css` y `public/app.js` son una **maqueta provisional** oscura con contenido de ejemplo. Se descarta: el boceto real es claro y distinto.
-- El boceto llegó como `.zip` (6 de noviembre de 2026). Su página, `Main.dc.html`, es un Design Component de Claude: usa etiquetas propias y carga un `support.js` que **no viene en el zip**, así que no abre en un navegador normal. Hay que **reconstruirla** como HTML, CSS y JavaScript estáticos fieles al boceto.
-- Los datos de artículos y etiquetas irán en un archivo JSON aparte, para añadir artículos sin tocar el diseño. Más adelante lo podrá escribir el lector de cuadernos.
-- El `.zip` no se guarda en el repositorio. Los assets (logos, foto, stickers y currículum censurado) se copian a `public/assets/`.
+- **El boceto ya está reconstruido** y funciona en un navegador normal (rama `test`). Lo que hay:
+  - `boceto/Main.dc.html`: el original del boceto, sin cambios (formato Design Component de Claude).
+  - `boceto/assets_manifest.json`: relaciona los ids `/_blob/...` del artefacto con los archivos de `public/assets/`.
+  - `public/support.js`: runtime mínimo que reemplaza al de la plataforma (no venía en el zip). Pinta la plantilla (`sc-if`, `sc-for`, `{{variables}}`) y actualiza solo lo que cambia.
+  - `scripts/generar_index.py`: genera `public/index.html` desde `boceto/Main.dc.html`. **`public/index.html` no se edita a mano.**
+  - `public/assets/`: logos, foto, stickers y currículum (PNG y PDF, ya censurados).
+- **Cómo cambiar el diseño:** se edita `boceto/Main.dc.html` (o se reemplaza por una nueva exportación del artefacto) y se corre `python scripts/generar_index.py`.
+- Detalle heredado del boceto: la barra lateral declara `flex:0 0 {{sideFlex}}` con un valor que ya trae `0 0 200px`, lo que resulta en CSS inválido. Por eso su ancho depende del contenido (unos 223 px abierta y 61 px recogida) y no es 200/64 como dice el historial. Se dejó igual para que quede idéntico. Si se quiere 200/64, se corrige en `boceto/Main.dc.html`.
+- El boceto no está optimizado para celular (hay desplazamiento horizontal en pantallas angostas).
+- Los datos de artículos y etiquetas están dentro de `boceto/Main.dc.html` (listas `T` y `ARTICLES`). Más adelante se pasarán a un JSON aparte, que podrá escribir el lector de cuadernos.
+- El `.zip` original no se guarda en el repositorio.
 
 ## Primer artículo: Predicción del Mundial 2026
 
