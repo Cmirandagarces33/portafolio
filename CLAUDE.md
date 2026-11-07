@@ -2,7 +2,7 @@
 
 Portafolio de Cristian David Miranda Garcés, Ingeniero de Sistemas, sobre análisis de datos y ciencia de datos aplicados al fútbol. Su objetivo es conseguir trabajo.
 
-**Antes de proponer o cambiar algo, leer `CONTEXTO.md`**: ahí están las decisiones de estructura, diseño, privacidad y vocabulario.
+**Antes de proponer o cambiar algo, leer `CONTEXTO.md`** (objetivo, privacidad, flujo y estado) **y `Historial_Portafolio.md`** (cómo se construyó el boceto: estructura, lógica y reglas de diseño de la página).
 
 ## Reglas de trabajo
 
@@ -14,15 +14,14 @@ Portafolio de Cristian David Miranda Garcés, Ingeniero de Sistemas, sobre anál
 
 ## Privacidad (el sitio es público)
 
-- No publicar teléfono, WhatsApp, dirección de casa, documento de identidad ni fecha de nacimiento completa.
-- No subir al repositorio el currículum original: contiene teléfono y datos de terceros (referencias). Solo se publica una versión sin esos datos.
+- No publicar teléfono completo, WhatsApp, dirección de casa, documento de identidad ni fecha de nacimiento completa.
+- No publicar datos de contacto de las referencias del currículum (son terceros).
+- No subir al repositorio el currículum original.
 
-## Vocabulario y diseño
+## Diseño
 
+- El diseño y la estructura de la página salen del boceto de Cristian, descrito en `Historial_Portafolio.md`. No inventar colores, tipografías ni estructura que no estén ahí, y consultar ante cualquier duda.
 - Se dice **artículo**, no "estudio" ni "revista".
-- Estructura: barra lateral con "Portafolio" arriba y el nombre abajo, leyenda de etiquetas desplegable (varias a la vez), muro de portadas 3:4 tipo burbuja, tabla de artículos recientes con buscador, y páginas de artículo en escalera (texto, gráfico y código).
-- Etiquetas con color: Champions (azul), Liga española (rojo), Liga francesa (morado), Jugadores (negro), Mundial (verde).
-- El diseño visual (colores, tipografías, tema) aún no está definido. No inventarlo sin consultar.
 - Gráficos estáticos al inicio. El movimiento se añade después.
 
 ## Despliegue
@@ -30,6 +29,7 @@ Portafolio de Cristian David Miranda Garcés, Ingeniero de Sistemas, sobre anál
 - Repositorio privado en GitHub, conectado a Cloudflare Workers.
 - `main` es producción y `test` es la rama de pruebas con vista previa.
 - `wrangler.jsonc` debe mantener el bloque `"previews": {}`.
+- Solo el contenido de `public/` se publica.
 
 ## Automatización futura
 
