@@ -40,7 +40,7 @@ a.ulink:hover{text-decoration-color:#18181b}
 <div style="display:flex;flex-wrap:wrap;align-items:stretch;background:#ececee;min-height:100vh;align-content:stretch;font-size:13px;color:#18181b">
 
 <!-- SIDEBAR -->
-<aside class="sidebar" style="flex:0 0 auto;width:{{sideWidth}};align-self:flex-start;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:#f3f3f5;border-right:1px solid #e2e2e6;padding:12px 10px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<aside class="sidebar" onMouseEnter="{{sideEnter}}" onMouseLeave="{{sideLeave}}" style="flex:0 0 auto;width:{{sideWidth}};align-self:flex-start;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:#f3f3f5;border-right:1px solid #e2e2e6;padding:12px 10px;display:flex;flex-direction:column;gap:14px;min-width:0">
 <div style="display:flex;flex-direction:{{headDir}};align-items:center;justify-content:space-between;gap:10px;padding:2px 4px">
 <div style="display:flex;align-items:center;gap:9px;min-width:0">
 <span style="flex:0 0 22px;width:22px;height:22px;border-radius:5px;background:#111;display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="8" height="8" rx="1.5"></rect><path d="M4.5 6h3"></path></svg></span>
@@ -266,7 +266,8 @@ class Component extends DCLogic {
     const grey = '#a1a1aa';
     const red = '#e0453a';
     const pinned = !!(this.state && this.state.pinned);
-    const collapsed = !pinned;
+    const sideHover = !!(this.state && this.state.sideHover);
+    const collapsed = !pinned && !sideHover;
     const query = (this.state && this.state.query) || '';
     const view = (this.state && this.state.view) || 'library';
     const lang = (this.state && this.state.lang) || 'es';
@@ -404,9 +405,11 @@ class Component extends DCLogic {
       pinned: pinned,
       headDir: collapsed ? 'column' : 'row',
       navJustify: collapsed ? 'center' : 'flex-start',
-      toggleLabel: collapsed ? 'Fijar barra lateral' : 'Soltar barra lateral',
-      toggleTip: collapsed ? 'Fijar barra lateral' : 'Soltar barra lateral',
+      toggleLabel: pinned ? 'Soltar barra lateral' : 'Fijar barra lateral',
+      toggleTip: pinned ? 'Soltar barra lateral' : 'Fijar barra lateral',
       toggleSidebar: () => this.setState({ pinned: !pinned }),
+      sideEnter: () => this.setState({ sideHover: true }),
+      sideLeave: () => this.setState({ sideHover: false }),
       columns: columns,
       preview: pv || blank,
       hasPreview: !!pv,
