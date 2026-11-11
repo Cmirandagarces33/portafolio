@@ -24,9 +24,14 @@ a.dl:hover{background:#f4f4f5}
 a.ulink{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:#a1a1aa;text-underline-offset:5px}
 a.ulink:hover{text-decoration-color:#18181b}
 .sidebar{transition:width .35s ease-in-out}
+nav a>svg{flex:none}
+.lbl{opacity:1;visibility:visible;transition:opacity .22s ease .08s,visibility 0s}
+.is-collapsed .lbl{opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s .12s}
+.ico{opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s .12s}
+.is-collapsed .ico{opacity:1;visibility:visible;transition:opacity .22s ease .08s,visibility 0s}
 .tip{opacity:0;visibility:hidden;transform:translateY(calc(-50% + var(--dy,0px))) translateX(-4px);pointer-events:none;transition:opacity .15s,transform .15s,visibility .15s,left .35s ease-in-out}
 .tipwrap:hover .tip,.tipwrap:has(:focus-visible) .tip{opacity:1;visibility:visible;transform:translateY(calc(-50% + var(--dy,0px))) translateX(0)}
-@media (prefers-reduced-motion:reduce){.tip,.sidebar{transition:none}}
+@media (prefers-reduced-motion:reduce){.tip,.sidebar,.lbl,.ico{transition:none!important}}
 .row{transition:background .15s}
 .sheet{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .3s,box-shadow .3s,border-color .2s}
 .sheet:focus-visible{outline:2px solid #4a73ad;outline-offset:2px}
@@ -40,13 +45,13 @@ a.ulink:hover{text-decoration-color:#18181b}
 <div style="display:flex;flex-wrap:wrap;align-items:stretch;background:#ececee;min-height:100vh;align-content:stretch;font-size:13px;color:#18181b">
 
 <!-- SIDEBAR -->
-<aside class="sidebar" onMouseEnter="{{sideEnter}}" onMouseLeave="{{sideLeave}}" style="flex:0 0 auto;width:{{sideWidth}};align-self:flex-start;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:#f3f3f5;border-right:1px solid #e2e2e6;padding:12px 10px;display:flex;flex-direction:column;gap:14px;min-width:0">
-<div style="display:flex;flex-direction:{{headDir}};align-items:center;justify-content:space-between;gap:10px;padding:2px 4px">
+<aside class="sidebar {{sideCls}}" onMouseEnter="{{sideEnter}}" onMouseLeave="{{sideLeave}}" style="flex:0 0 auto;width:{{sideWidth}};align-self:flex-start;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:#f3f3f5;border-right:1px solid #e2e2e6;padding:12px 10px;display:flex;flex-direction:column;gap:14px;min-width:0">
+<div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px;padding:2px 4px 2px 9px">
 <div style="display:flex;align-items:center;gap:9px;min-width:0">
 <span style="flex:0 0 22px;width:22px;height:22px;border-radius:5px;background:#111;display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="2" y="2" width="8" height="8" rx="1.5"></rect><path d="M4.5 6h3"></path></svg></span>
-<sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;font-weight:600;letter-spacing:-0.01em;white-space:nowrap">Portafolio</span></sc-if>
+<span class="lbl" style="font-size:14px;font-weight:600;letter-spacing:-0.01em;white-space:nowrap">Portafolio</span>
 </div>
-<span class="tipwrap" style="position:relative;display:inline-flex;flex:0 0 28px">
+<span class="tipwrap lbl" style="position:relative;display:inline-flex;flex:0 0 28px">
 <button onClick="{{toggleSidebar}}" aria-label="{{toggleLabel}}" aria-pressed="{{pinned}}" aria-describedby="tip-fijar" style="flex:0 0 28px;width:28px;height:28px;border:0;background:transparent;border-radius:7px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2.5" width="12" height="11" rx="2"></rect><path d="M6 2.5v11M10.5 6.2L9 8l1.5 1.8"></path></svg></button>
 <div id="tip-fijar" role="tooltip" class="tip" style="position:fixed;left:{{tipLeft}}px;top:auto;--dy:14px;white-space:nowrap;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:8px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:6px 10px;font-size:12px;font-weight:500;color:#18181b;z-index:60">
 <span style="position:absolute;left:-5px;top:50%;width:8px;height:8px;margin-top:-4px;background:#fff;border-left:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>{{toggleTip}}</div>
@@ -54,11 +59,11 @@ a.ulink:hover{text-decoration-color:#18181b}
 </div>
 
 <nav aria-label="Principal" style="display:flex;flex-direction:column;gap:4px">
-<a class="{{panelCls}}" href="#" onClick="{{goLibrary}}" aria-current="{{panelCurrent}}" aria-label="Panel" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="2"></rect><path d="M9 2.5v13M2.5 9h13"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Panel</span><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#6b6b73" stroke-width="1.4" aria-hidden="true"><path d="M3.5 1.5L7 5l-3.5 3.5"></path></svg></sc-if></a>
-<a class="{{aboutCls}}" href="#" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Acerca de mí</span></sc-if></a>
-<a class="{{cvCls}}" href="#" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Currículum</span></sc-if></a>
+<a class="{{panelCls}}" href="#" onClick="{{goLibrary}}" aria-current="{{panelCurrent}}" aria-label="Panel" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="2"></rect><path d="M9 2.5v13M2.5 9h13"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Panel</span><svg class="lbl" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#6b6b73" stroke-width="1.4" aria-hidden="true"><path d="M3.5 1.5L7 5l-3.5 3.5"></path></svg></a>
+<a class="{{aboutCls}}" href="#" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Acerca de mí</span></a>
+<a class="{{cvCls}}" href="#" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Currículum</span></a>
 <div class="tipwrap" style="position:relative">
-<a class="nav" href="#" onClick="{{noNav}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:{{navJustify}};gap:10px;padding:7px 10px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}"><span style="flex:1">Otros proyectos</span></sc-if></a>
+<a class="nav" href="#" onClick="{{noNav}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Otros proyectos</span></a>
 <div id="tip-otros" role="tooltip" class="tip" style="position:fixed;left:{{tipLeft}}px;top:auto;--dy:-17px;width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60">
 <span style="position:absolute;left:-5px;top:50%;width:8px;height:8px;margin-top:-4px;background:#fff;border-left:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>
 <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Otros proyectos</div>
@@ -69,8 +74,8 @@ a.ulink:hover{text-decoration-color:#18181b}
 
 <div style="flex:1;min-height:20px"></div>
 
-<sc-if value="{{expanded}}" hint-placeholder-val="{{ true }}">
-<div style="display:flex;flex-direction:column;gap:11px;padding:2px 4px 4px">
+<div style="display:grid;align-items:end">
+<div class="lbl" style="grid-area:1/1;width:203px;box-sizing:border-box;display:flex;flex-direction:column;gap:11px;padding:2px 4px 4px">
 <div style="position:relative;display:flex;justify-content:center;align-items:center;height:94px">
 <div style="position:absolute;left:-12px;right:-12px;top:50%;height:1px;background:#d4d4d8"></div>
 <div style="position:relative;border-radius:50%;background:#f3f3f5;padding:6px">
@@ -88,10 +93,8 @@ a.ulink:hover{text-decoration-color:#18181b}
 <a class="nav" href="https://www.linkedin.com/in/cristianmirandaa716/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Cristian" style="width:32px;height:32px;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
 </div>
 </div>
-</sc-if>
-<sc-if value="{{collapsed}}" hint-placeholder-val="{{ false }}">
-<div style="display:flex;justify-content:center"><img src="/_blob/148f43e153d88033311d2499858ee4f0" alt="Foto de Cristian David Miranda Garces" style="display:block;width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:2px solid #fff;box-shadow:0 0 0 1px #d4d4d8"></div>
-</sc-if>
+<div class="ico" style="grid-area:1/1;justify-self:start;width:40px;display:flex;justify-content:center"><img src="/_blob/148f43e153d88033311d2499858ee4f0" alt="Foto de Cristian David Miranda Garces" style="display:block;width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:2px solid #fff;box-shadow:0 0 0 1px #d4d4d8"></div>
+</div>
 </aside>
 
 <!-- MAIN -->
@@ -403,8 +406,7 @@ class Component extends DCLogic {
       sideWidth: collapsed ? '61px' : '224px',
       tipLeft: collapsed ? 65 : 228,
       pinned: pinned,
-      headDir: collapsed ? 'column' : 'row',
-      navJustify: collapsed ? 'center' : 'flex-start',
+      sideCls: collapsed ? 'is-collapsed' : '',
       toggleLabel: pinned ? 'Soltar barra lateral' : 'Fijar barra lateral',
       toggleTip: pinned ? 'Soltar barra lateral' : 'Fijar barra lateral',
       toggleSidebar: () => this.setState({ pinned: !pinned }),
