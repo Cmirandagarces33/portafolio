@@ -113,6 +113,7 @@ nav a>svg{flex:none}
 <div style="flex:0 0 200px;width:200px;aspect-ratio:16/9;box-sizing:border-box;border-radius:8px;border:1px solid #e2e2e6;background:{{preview.cover}};display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{preview.coverText}}</div>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:7px">
 <div style="display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap"><span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">{{preview.title}}</span><sc-for list="{{preview.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 9px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:2px 9px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></div>
+<sc-if value="{{preview.hasLead}}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;line-height:1.5;color:#3f3f46">{{preview.lead}}</div></sc-if>
 <div style="font-size:13px;line-height:1.5;color:#3f3f46">{{preview.intro}}</div>
 <div style="font-size:11px;color:#52525b">Clic en la hoja para abrir el artículo</div>
 </div>
@@ -138,7 +139,7 @@ nav a>svg{flex:none}
 <div class="bobber" style="position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:{{k.z}}">
 <button class="sheet" onClick="{{k.onOpen}}" onMouseEnter="{{k.onHover}}" onFocus="{{k.onHover}}" aria-label="{{k.label}}" style="position:absolute;left:10px;width:min(220px,calc(100% - 44px));top:{{k.top}};height:210px;box-sizing:border-box;display:flex;flex-direction:column;padding:6px 10px 10px;margin:0;text-align:left;font-family:inherit;color:#18181b;background:#fff;border:1px solid {{k.border}};border-radius:10px;cursor:pointer;transform-origin:0 0;transform:{{k.transform}};opacity:{{k.opacity}};pointer-events:{{k.events}};box-shadow:{{k.shadow}}">
 <span style="display:block;flex:0 0 auto;font-size:11.5px;font-weight:600;line-height:1.25;letter-spacing:-0.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{k.title}}</span>
-<span style="display:block;flex:0 0 auto;margin-top:3px;font-size:10.5px;line-height:1.4;color:#52525b;max-height:30px;overflow:hidden">{{k.intro}}</span>
+<span style="display:block;flex:0 0 auto;margin-top:3px;font-size:10.5px;line-height:1.4;color:#52525b;max-height:30px;overflow:hidden">{{k.cardIntro}}</span>
 <span style="flex:1 1 auto;min-height:70px;display:flex;align-items:center;justify-content:center;margin-top:8px;border-radius:7px;border:1px solid #e2e2e6;background:{{k.cover}};font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{k.coverText}}</span>
 <span style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;flex:0 0 auto;max-width:100%"><sc-for list="{{k.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 8px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:2px 8px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></span>
 </button>
@@ -309,7 +310,7 @@ class Component extends DCLogic {
     const ARTICLES = [
       { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido con Python, R.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
       { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico con Python, SQL.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
-      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: '/articulos/mundial-2026/articulo.html', coverImg: '/articulos/mundial-2026/img/portada.jpg' },
+      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', lead: 'Con 48 selecciones y datos de seis Copas del Mundo, ¿quién llega con el perfil más sólido?', cardLead: 'Con 48 selecciones y datos de seis Copas del Mundo', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: '/articulos/mundial-2026/articulo.html', coverImg: '/articulos/mundial-2026/img/portada.jpg' },
       { id: 's1', title: 'Artículo de ejemplo 1', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
       { id: 's2', title: 'Artículo de ejemplo 2', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
       { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador con Python.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
@@ -352,7 +353,7 @@ class Component extends DCLogic {
       const all = a.t.map((x) => chipOf(a, x));
       const own = chipOf(a, tid);
       const extra = t.kind !== 'player' && a.player ? [{ isPlayer: true, isTourney: false, label: a.player, color: '#71717a' }] : [];
-      return { title: a.title, intro: a.intro, tag: t.name, color: t.color, cover: a.coverImg ? 'url(' + a.coverImg + ') center / cover no-repeat' : coverOf(t.color), coverText: a.coverImg ? '' : 'Portada', chips: all, cardChips: [own].concat(extra) };
+      return { title: a.title, intro: a.intro, lead: a.lead || '', hasLead: !!a.lead, cardIntro: a.cardLead || a.lead || a.intro, tag: t.name, color: t.color, cover: a.coverImg ? 'url(' + a.coverImg + ') center / cover no-repeat' : coverOf(t.color), coverText: a.coverImg ? '' : 'Portada', chips: all, cardChips: [own].concat(extra) };
     };
     const cardsFor = (t) => {
       const ids = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).map((a) => a.id);
@@ -389,7 +390,7 @@ class Component extends DCLogic {
       const info = cardsFor(t);
       return { ...shape(t), cards: info.cards, empty: info.n === 0, bodyH: info.bodyH + 'px', divider: i < visible.length - 1 ? '1px solid #e2e2e6' : '0' };
     });
-    const blank = { title: '', intro: '', tag: '', color: '#a1a1aa', cover: 'none', coverText: '', chips: [], cardChips: [] };
+    const blank = { title: '', intro: '', lead: '', hasLead: false, cardIntro: '', tag: '', color: '#a1a1aa', cover: 'none', coverText: '', chips: [], cardChips: [] };
     const pv = hover ? infoOf(hover.id, hover.tid) : null;
     const dr = opened ? infoOf(opened.id, opened.tid) : null;
     const legend = T.filter((t) => visible.indexOf(t.id) === -1).map((t) => ({
