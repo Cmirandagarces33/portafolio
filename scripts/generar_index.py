@@ -22,9 +22,10 @@ restos = re.findall(r"/_blob/[0-9a-f]+", html)
 if restos:
     raise SystemExit(f"Quedan rutas sin traducir: {sorted(set(restos))}")
 
-# Las imágenes cuyo src es una variable ({{c.logo}}) se marcan con data-dc-src para que
+# Las imágenes y el iframe cuyo src es una variable ({{c.logo}}) se marcan con data-dc-src para que
 # el navegador no pida un archivo inexistente antes de que support.js las rellene.
 html = html.replace('<img src="{{', '<img data-dc-src="{{')
+html = html.replace('<iframe title="Artículo" src="{{', '<iframe title="Artículo" data-dc-src="{{')
 
 html = html.replace('src="./support.js"', 'src="support.js"')
 html = html.replace('<html lang="en">', '<html lang="es">', 1)
