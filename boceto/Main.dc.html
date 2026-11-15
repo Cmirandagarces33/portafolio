@@ -202,8 +202,8 @@ nav a>svg{flex:none}
 </sc-if>
 
 <sc-if value="{{isArticle}}" hint-placeholder-val="{{ false }}">
-<!-- ARTÍCULO (página propia dentro de un iframe; la barra lateral se mantiene) -->
-<iframe title="Artículo" src="{{articleSrc}}" style="display:block;width:100%;height:calc(100vh - 112px);min-height:480px;border:0;background:transparent"></iframe>
+<!-- ARTÍCULO (parte de la página: se carga desde su archivo y no se repinta por dentro) -->
+<div data-estatico="1" data-cargar="{{articleSrc}}" style="min-width:0"><div style="padding:22px 10px;font-size:13px;color:#52525b">Cargando artículo…</div></div>
 </sc-if>
 
 <sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
@@ -272,11 +272,10 @@ nav a>svg{flex:none}
 class Component extends DCLogic {
   constructor(...args) {
     super(...args);
-    // La página del artículo (dentro del iframe) avisa con postMessage cuando se pulsa "Volver atrás".
-    window.addEventListener('message', (e) => {
-      if (e.origin === window.location.origin && e.data && e.data.tipo === 'volver-biblioteca') {
-        this.setState({ view: 'library', article: null });
-      }
+    // El artículo (que vive dentro de la página) avisa con este evento cuando se pulsa "Volver atrás".
+    window.addEventListener('articulo:volver', () => {
+      this.setState({ view: 'library', article: null });
+      window.scrollTo(0, 0);
     });
   }
   renderVals() {
@@ -310,7 +309,7 @@ class Component extends DCLogic {
     const ARTICLES = [
       { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido con Python, R.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
       { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico con Python, SQL.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
-      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: 'articulos/mundial-2026/index.html' },
+      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: '/articulos/mundial-2026/articulo.html' },
       { id: 's1', title: 'Artículo de ejemplo 1', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
       { id: 's2', title: 'Artículo de ejemplo 2', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
       { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador con Python.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
@@ -328,6 +327,7 @@ class Component extends DCLogic {
     const openArticle = (a) => (e) => {
       if (e && e.preventDefault) e.preventDefault();
       this.setState({ view: 'article', article: a.page, open: null });
+      window.scrollTo(0, 0);
     };
     const recent = ARTICLES.filter((a) => a.date).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
       id: a.id, onOpen: a.page ? openArticle(a) : null, onKey: a.page ? ((e) => { if (e.key === 'Enter' || e.key === ' ') openArticle(a)(e); }) : null, tab: a.page ? '0' : '-1', cursor: a.page ? 'pointer' : 'default', name: a.title, period: a.period, tags: a.t.map((id) => ({ label: byId[id].name, color: byId[id].color })), date: fmt(a.date), langs: a.langs, type: a.type
