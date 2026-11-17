@@ -120,6 +120,9 @@
     Object.keys(names).forEach(function (k) { oldEl[k] = (newEl.__h && newEl.__h[k]) || null; });
     oldEl.__h = newEl.__h;
 
+    // Bloque estático (ver cargarEstaticos): su contenido lo gestiona su propio código, no la plantilla.
+    if (oldEl.hasAttribute('data-estatico')) return;
+
     if (oldEl.localName === 'input') {
       var want = newEl.getAttribute('value') || '';
       if (oldEl.value !== want) oldEl.value = want;
@@ -142,6 +145,45 @@
       }
     });
     while (oldParent.childNodes.length > fresh.length) oldParent.removeChild(oldParent.lastChild);
+  }
+
+  /* ---- Bloques estáticos ----
+   * <div data-estatico data-cargar="/ruta/archivo.html"> pide ese archivo una vez, copia sus
+   * <style> al <head>, pone el resto dentro del div y ejecuta sus <script>. Al repintar la
+   * página, morph() no toca su interior (así no se borran los cambios que hacen sus scripts). */
+  function cargarEstaticos(root) {
+    Array.prototype.forEach.call(root.querySelectorAll('[data-cargar]'), function (el) {
+      var url = el.getAttribute('data-cargar');
+      if (!url || el.__cargado === url) return;
+      el.__cargado = url;
+      fetch(url).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      }).then(function (txt) {
+        if (!el.isConnected || el.__cargado !== url) return;
+        var tpl = document.createElement('template');
+        tpl.innerHTML = txt;
+        var scripts = Array.prototype.slice.call(tpl.content.querySelectorAll('script'));
+        scripts.forEach(function (s) { s.parentNode.removeChild(s); });
+        Array.prototype.slice.call(tpl.content.querySelectorAll('style')).forEach(function (st, n) {
+          var clave = url + '#' + n;
+          if (!document.head.querySelector('style[data-de="' + clave + '"]')) {
+            st.setAttribute('data-de', clave);
+            document.head.appendChild(st);
+          } else { st.parentNode.removeChild(st); }
+        });
+        el.textContent = '';
+        el.appendChild(tpl.content);
+        scripts.forEach(function (s) {
+          var n = document.createElement('script');
+          n.text = s.textContent;
+          el.appendChild(n);
+        });
+      }).catch(function (err) {
+        console.error('support.js: no se pudo cargar ' + url, err);
+        if (el.isConnected && el.__cargado === url) el.textContent = 'No se pudo cargar el contenido.';
+      });
+    });
   }
 
   /* ---- Arranque ---- */
@@ -171,6 +213,7 @@
         var holder = document.createElement('div');
         nodes.forEach(function (n) { holder.appendChild(n); });
         morph(root, holder);
+        cargarEstaticos(root);
       } catch (err) {
         console.error('support.js: error al pintar la página', err);
       }

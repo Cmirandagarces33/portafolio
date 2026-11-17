@@ -110,9 +110,10 @@ nav a>svg{flex:none}
 <div aria-live="polite" style="flex:1 1 100%;box-sizing:border-box;background:#fafafa;border:1px solid #e2e2e6;border-radius:10px;padding:12px;min-height:136px;display:flex;align-items:center;gap:16px">
 <sc-if value="{{noPreview}}" hint-placeholder-val="{{ true }}"><div style="flex:1;text-align:center;font-size:12.5px;color:#52525b">Pasa el cursor sobre un artículo para ver su vista previa.</div></sc-if>
 <sc-if value="{{hasPreview}}" hint-placeholder-val="{{ false }}">
-<div style="flex:0 0 200px;width:200px;aspect-ratio:16/9;box-sizing:border-box;border-radius:8px;border:1px solid #e2e2e6;background:{{preview.cover}};display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">Portada</div>
+<div style="flex:0 0 200px;width:200px;aspect-ratio:16/9;box-sizing:border-box;border-radius:8px;border:1px solid #e2e2e6;background:{{preview.cover}};display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{preview.coverText}}</div>
 <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:7px">
 <div style="display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap"><span style="font-size:16px;font-weight:600;letter-spacing:-0.01em">{{preview.title}}</span><sc-for list="{{preview.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 9px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:2px 9px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></div>
+<sc-if value="{{preview.hasLead}}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;line-height:1.5;color:#3f3f46">{{preview.lead}}</div></sc-if>
 <div style="font-size:13px;line-height:1.5;color:#3f3f46">{{preview.intro}}</div>
 <div style="font-size:11px;color:#52525b">Clic en la hoja para abrir el artículo</div>
 </div>
@@ -138,8 +139,8 @@ nav a>svg{flex:none}
 <div class="bobber" style="position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:{{k.z}}">
 <button class="sheet" onClick="{{k.onOpen}}" onMouseEnter="{{k.onHover}}" onFocus="{{k.onHover}}" aria-label="{{k.label}}" style="position:absolute;left:10px;width:min(220px,calc(100% - 44px));top:{{k.top}};height:210px;box-sizing:border-box;display:flex;flex-direction:column;padding:6px 10px 10px;margin:0;text-align:left;font-family:inherit;color:#18181b;background:#fff;border:1px solid {{k.border}};border-radius:10px;cursor:pointer;transform-origin:0 0;transform:{{k.transform}};opacity:{{k.opacity}};pointer-events:{{k.events}};box-shadow:{{k.shadow}}">
 <span style="display:block;flex:0 0 auto;font-size:11.5px;font-weight:600;line-height:1.25;letter-spacing:-0.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{k.title}}</span>
-<span style="display:block;flex:0 0 auto;margin-top:3px;font-size:10.5px;line-height:1.4;color:#52525b;max-height:30px;overflow:hidden">{{k.intro}}</span>
-<span style="flex:1 1 auto;min-height:70px;display:flex;align-items:center;justify-content:center;margin-top:8px;border-radius:7px;border:1px solid #e2e2e6;background:{{k.cover}};font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">Portada</span>
+<span style="display:block;flex:0 0 auto;margin-top:3px;font-size:10.5px;line-height:1.4;color:#52525b;max-height:30px;overflow:hidden">{{k.cardIntro}}</span>
+<span style="flex:1 1 auto;min-height:70px;display:flex;align-items:center;justify-content:center;margin-top:8px;border-radius:7px;border:1px solid #e2e2e6;background:{{k.cover}};font-size:9.5px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{k.coverText}}</span>
 <span style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;flex:0 0 auto;max-width:100%"><sc-for list="{{k.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 8px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:2px 8px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></span>
 </button>
 </div>
@@ -185,7 +186,7 @@ nav a>svg{flex:none}
 <div role="columnheader" style="font-weight:500;padding:12px 10px">Tipo</div>
 </div>
 <sc-for list="{{articleRows}}" as="r" hint-placeholder-count="5">
-<div role="row" class="row" style="height:52px;box-sizing:border-box;display:grid;grid-template-columns:minmax(210px,1.5fr) minmax(190px,1.2fr) minmax(230px,1.5fr) minmax(140px,1fr) minmax(120px,0.9fr) minmax(130px,1fr);align-items:center;border-bottom:1px solid #f3f3f5">
+<div role="row" class="row" onClick="{{r.onOpen}}" onKeyDown="{{r.onKey}}" tabindex="{{r.tab}}" style="cursor:{{r.cursor}};height:52px;box-sizing:border-box;display:grid;grid-template-columns:minmax(210px,1.5fr) minmax(190px,1.2fr) minmax(230px,1.5fr) minmax(140px,1fr) minmax(120px,0.9fr) minmax(130px,1fr);align-items:center;border-bottom:1px solid #f3f3f5">
 <div role="cell" style="padding:0 10px;font-weight:500;color:#18181b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{r.name}}</div>
 <div role="cell" style="padding:0 10px;color:#3f3f46;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{r.period}}</div>
 <div role="cell" style="padding:0 10px;color:#18181b;display:flex;flex-wrap:nowrap;gap:6px 16px;overflow:hidden"><sc-for list="{{r.tags}}" as="t" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:7px;white-space:nowrap"><i style="width:8px;height:8px;border-radius:50%;background:{{t.color}}"></i>{{t.label}}</span></sc-for></div>
@@ -199,6 +200,11 @@ nav a>svg{flex:none}
 </div>
 </section>
 
+</sc-if>
+
+<sc-if value="{{isArticle}}" hint-placeholder-val="{{ false }}">
+<!-- ARTÍCULO (parte de la página: se carga desde su archivo y no se repinta por dentro) -->
+<div data-estatico="1" data-cargar="{{articleSrc}}" style="min-width:0"><div style="padding:22px 10px;font-size:13px;color:#52525b">Cargando artículo…</div></div>
 </sc-if>
 
 <sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
@@ -254,7 +260,7 @@ nav a>svg{flex:none}
 <aside role="dialog" aria-label="Artículo" style="position:relative;width:min(440px,100%);height:100%;box-sizing:border-box;background:#fff;border-left:1px solid #e2e2e6;box-shadow:-12px 0 32px rgba(24,24,27,0.12);padding:20px;display:flex;flex-direction:column;gap:14px;overflow:auto">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><span style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{drawer.chips}}" as="ch" hint-placeholder-count="2"><sc-if value="{{ch.isPlayer}}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:3px 10px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:0 0 10px"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if><sc-if value="{{ch.isTourney}}" hint-placeholder-val="{{ true }}"><span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#3f3f46;background:#ececee;border-radius:999px;padding:3px 10px;max-width:100%;box-sizing:border-box;flex:0 0 auto"><i style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:{{ch.color}}"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ch.label}}</span></span></sc-if></sc-for></span>
 <button onClick="{{closeDrawer}}" aria-label="Cerrar" style="width:32px;height:32px;border:1px solid #e2e2e6;background:#fff;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"></path></svg></button></div>
-<div style="height:190px;box-sizing:border-box;border-radius:10px;border:1px solid #e2e2e6;background:{{drawer.cover}};display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">Portada</div>
+<div style="height:190px;box-sizing:border-box;border-radius:10px;border:1px solid #e2e2e6;background:{{drawer.cover}};display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{drawer.coverText}}</div>
 <h2 style="margin:0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-0.02em">{{drawer.title}}</h2>
 <p style="margin:0;font-size:14px;line-height:1.55;color:#3f3f46">{{drawer.intro}}</p>
 <p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Aquí irá el contenido del artículo.</p>
@@ -265,6 +271,14 @@ nav a>svg{flex:none}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1020}}'>
 class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    // El artículo (que vive dentro de la página) avisa con este evento cuando se pulsa "Volver atrás".
+    window.addEventListener('articulo:volver', () => {
+      this.setState({ view: 'library', article: null });
+      window.scrollTo(0, 0);
+    });
+  }
   renderVals() {
     const grey = '#a1a1aa';
     const red = '#e0453a';
@@ -296,7 +310,7 @@ class Component extends DCLogic {
     const ARTICLES = [
       { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido con Python, R.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
       { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico con Python, SQL.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
-      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python, SQL.', t: ['mu'], period: '2026', date: '2026-07-01', langs: 'Python, SQL', type: 'Modelo predictivo' },
+      { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', lead: 'Con 48 selecciones y datos de seis Copas del Mundo, ¿quién llega con el perfil más sólido?', cardLead: 'Con 48 selecciones y datos de seis Copas del Mundo', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: '/articulos/mundial-2026/articulo.html', coverImg: '/articulos/mundial-2026/img/portada.jpg' },
       { id: 's1', title: 'Artículo de ejemplo 1', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
       { id: 's2', title: 'Artículo de ejemplo 2', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
       { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador con Python.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
@@ -311,8 +325,13 @@ class Component extends DCLogic {
     T.forEach((t) => { byId[t.id] = t; });
     const MON = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
     const fmt = (iso) => { const d = iso.split('-'); return d[2] + ' de ' + MON[Number(d[1]) - 1] + ' de ' + d[0]; };
+    const openArticle = (a) => (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ view: 'article', article: a.page, open: null });
+      window.scrollTo(0, 0);
+    };
     const recent = ARTICLES.filter((a) => a.date).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
-      name: a.title, period: a.period, tags: a.t.map((id) => ({ label: byId[id].name, color: byId[id].color })), date: fmt(a.date), langs: a.langs, type: a.type
+      id: a.id, onOpen: a.page ? openArticle(a) : null, onKey: a.page ? ((e) => { if (e.key === 'Enter' || e.key === ' ') openArticle(a)(e); }) : null, tab: a.page ? '0' : '-1', cursor: a.page ? 'pointer' : 'default', name: a.title, period: a.period, tags: a.t.map((id) => ({ label: byId[id].name, color: byId[id].color })), date: fmt(a.date), langs: a.langs, type: a.type
     }));
     const q = query.trim().toLowerCase();
     const rows = q ? recent.filter((r) => [r.name, r.period, r.date, r.langs, r.type, r.tags.map((t) => t.label).join(' ')].join(' ').toLowerCase().includes(q)) : recent;
@@ -334,7 +353,7 @@ class Component extends DCLogic {
       const all = a.t.map((x) => chipOf(a, x));
       const own = chipOf(a, tid);
       const extra = t.kind !== 'player' && a.player ? [{ isPlayer: true, isTourney: false, label: a.player, color: '#71717a' }] : [];
-      return { title: a.title, intro: a.intro, tag: t.name, color: t.color, cover: coverOf(t.color), chips: all, cardChips: [own].concat(extra) };
+      return { title: a.title, intro: a.intro, lead: a.lead || '', hasLead: !!a.lead, cardIntro: a.cardLead || a.lead || a.intro, tag: t.name, color: t.color, cover: a.coverImg ? 'url(' + a.coverImg + ') center / cover no-repeat' : coverOf(t.color), coverText: a.coverImg ? '' : 'Portada', chips: all, cardChips: [own].concat(extra) };
     };
     const cardsFor = (t) => {
       const ids = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).map((a) => a.id);
@@ -361,7 +380,7 @@ class Component extends DCLogic {
             shadow: pos === 0 ? '0 10px 22px rgba(24,24,27,0.10)' : 'none',
             label: 'Abrir artículo: ' + inf.title,
             onHover: () => this.setState({ hover: { id: id, tid: t.id } }),
-            onOpen: () => this.setState({ open: { id: id, tid: t.id } })
+            onOpen: artOf(id).page ? openArticle(artOf(id)) : () => this.setState({ open: { id: id, tid: t.id } })
           };
         })
       };
@@ -371,7 +390,7 @@ class Component extends DCLogic {
       const info = cardsFor(t);
       return { ...shape(t), cards: info.cards, empty: info.n === 0, bodyH: info.bodyH + 'px', divider: i < visible.length - 1 ? '1px solid #e2e2e6' : '0' };
     });
-    const blank = { title: '', intro: '', tag: '', color: '#a1a1aa', cover: 'none', chips: [], cardChips: [] };
+    const blank = { title: '', intro: '', lead: '', hasLead: false, cardIntro: '', tag: '', color: '#a1a1aa', cover: 'none', coverText: '', chips: [], cardChips: [] };
     const pv = hover ? infoOf(hover.id, hover.tid) : null;
     const dr = opened ? infoOf(opened.id, opened.tid) : null;
     const legend = T.filter((t) => visible.indexOf(t.id) === -1).map((t) => ({
@@ -380,15 +399,17 @@ class Component extends DCLogic {
     }));
     return {
       isLibrary: view === 'library',
+      isArticle: view === 'article',
+      articleSrc: (this.state && this.state.article) || '',
       isCv: view === 'cv',
       isAbout: view === 'about',
       aboutCls: view === 'about' ? 'nav nav-on' : 'nav',
       aboutCurrent: view === 'about' ? 'page' : 'false',
       goAbout: go('about'),
       pageTitle: view === 'cv' ? 'Currículum' : (view === 'about' ? 'Acerca de mí' : 'Biblioteca de artículos'),
-      panelCls: view === 'library' ? 'nav nav-on' : 'nav',
+      panelCls: (view === 'library' || view === 'article') ? 'nav nav-on' : 'nav',
       cvCls: view === 'cv' ? 'nav nav-on' : 'nav',
-      panelCurrent: view === 'library' ? 'page' : 'false',
+      panelCurrent: (view === 'library' || view === 'article') ? 'page' : 'false',
       cvCurrent: view === 'cv' ? 'page' : 'false',
       goLibrary: go('library'),
       noNav: (e) => { if (e && e.preventDefault) e.preventDefault(); },
