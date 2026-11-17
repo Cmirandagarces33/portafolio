@@ -263,7 +263,11 @@ nav a>svg{flex:none}
 <div style="height:190px;box-sizing:border-box;border-radius:10px;border:1px solid #e2e2e6;background:{{drawer.cover}};display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{drawer.coverText}}</div>
 <h2 style="margin:0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-0.02em">{{drawer.title}}</h2>
 <p style="margin:0;font-size:14px;line-height:1.55;color:#3f3f46">{{drawer.intro}}</p>
-<p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Aquí irá el contenido del artículo.</p>
+<div style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+<p style="margin:0;font-size:16px;line-height:1.35;font-weight:600;letter-spacing:-0.01em;color:#18181b">Disculpa, estamos trabajando en este artículo</p>
+<p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Gracias por tu paciencia. Estamos haciendo algunas mejoras en este artículo y estará listo pronto.</p>
+</div>
+<img src="/assets/construccion/en-construccion.webp" alt="Ilustración de una persona trabajando en su computador bajo una lámpara, con un balón de fútbol sobre el escritorio" style="display:block;width:100%;height:auto;border-radius:10px">
 </aside>
 </div>
 </sc-if>
@@ -338,13 +342,11 @@ class Component extends DCLogic {
       { id: 'jg', name: 'Jugadores', color: '#71717a', kind: 'player', count: 0 }
     ];
     const ARTICLES = [
-      { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido con Python, R.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
-      { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico con Python, SQL.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
+      { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
+      { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
       { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', lead: 'Con 48 selecciones y datos de seis Copas del Mundo, ¿quién llega con el perfil más sólido?', cardLead: 'Con 48 selecciones y datos de seis Copas del Mundo', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: '/articulos/mundial-2026/articulo.html', coverImg: '/articulos/mundial-2026/img/portada.jpg' },
-      { id: 's1', title: 'Artículo de ejemplo 1', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
-      { id: 's2', title: 'Artículo de ejemplo 2', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
-      { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador con Python.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
-      { id: 's4', title: 'Raphinha balón de oro', intro: 'Perfil de jugador con Python, Power BI.', t: ['jg', 'll'], player: 'Raphinha', period: '2024 - 2025', date: '2026-08-15', langs: 'Python, Power BI', type: 'Perfil de jugador' }
+      { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
+      { id: 's4', title: 'Raphinha balón de oro', intro: 'Perfil de jugador.', t: ['jg', 'll'], player: 'Raphinha', period: '2024 - 2025', date: '2026-08-15', langs: 'Python, Power BI', type: 'Perfil de jugador' }
     ];
     T.forEach((t) => { t.count = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).length; });
     const hover = (this.state && this.state.hover) || null;
@@ -362,7 +364,8 @@ class Component extends DCLogic {
       this.ir({ view: 'article', article: a.page, open: null });
       window.scrollTo(0, 0);
     };
-    const recent = ARTICLES.filter((a) => a.date).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
+    // Solo los artículos terminados (los que ya tienen página propia) aparecen en la actividad reciente.
+    const recent = ARTICLES.filter((a) => a.date && a.page).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
       id: a.id, onOpen: a.page ? openArticle(a) : null, onKey: a.page ? ((e) => { if (e.key === 'Enter' || e.key === ' ') openArticle(a)(e); }) : null, tab: a.page ? '0' : '-1', cursor: a.page ? 'pointer' : 'default', name: a.title, period: a.period, tags: a.t.map((id) => ({ label: byId[id].name, color: byId[id].color })), date: fmt(a.date), langs: a.langs, type: a.type
     }));
     const q = query.trim().toLowerCase();
