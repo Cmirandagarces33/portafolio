@@ -59,9 +59,9 @@ nav a>svg{flex:none}
 </div>
 
 <nav aria-label="Principal" style="display:flex;flex-direction:column;gap:4px">
-<a class="{{panelCls}}" href="#" onClick="{{goLibrary}}" aria-current="{{panelCurrent}}" aria-label="Panel" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="2"></rect><path d="M9 2.5v13M2.5 9h13"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Panel</span><svg class="lbl" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#6b6b73" stroke-width="1.4" aria-hidden="true"><path d="M3.5 1.5L7 5l-3.5 3.5"></path></svg></a>
-<a class="{{aboutCls}}" href="#" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Acerca de mí</span></a>
-<a class="{{cvCls}}" href="#" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Currículum</span></a>
+<a class="{{panelCls}}" href="/" onClick="{{goLibrary}}" aria-current="{{panelCurrent}}" aria-label="Panel" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="2.5" width="13" height="13" rx="2"></rect><path d="M9 2.5v13M2.5 9h13"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Panel</span><svg class="lbl" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#6b6b73" stroke-width="1.4" aria-hidden="true"><path d="M3.5 1.5L7 5l-3.5 3.5"></path></svg></a>
+<a class="{{aboutCls}}" href="/acerca-de-mi" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Acerca de mí</span></a>
+<a class="{{cvCls}}" href="/curriculum" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Currículum</span></a>
 <div class="tipwrap" style="position:relative">
 <a class="nav" href="#" onClick="{{noNav}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Otros proyectos</span></a>
 <div id="tip-otros" role="tooltip" class="tip" style="position:fixed;left:{{tipLeft}}px;top:auto;--dy:-17px;width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60">
@@ -217,7 +217,7 @@ nav a>svg{flex:none}
 <p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">Bienvenido a mi espacio donde comparto mis proyectos, experiencias y me doy a conocer.<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10.5h-8.5L7 19.5V16H4z"></path><circle cx="8.5" cy="10.8" r="0.6" stroke="#e0453a" fill="#e0453a"></circle><circle cx="12" cy="10.8" r="0.6" stroke="#e0453a" fill="#e0453a"></circle><circle cx="15.5" cy="10.8" r="0.6" stroke="#e0453a" fill="#e0453a"></circle></g></svg></p>
 </div>
 <p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">Desde chico me gustaba lo relacionado a la tecnología<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="5" width="15" height="10.5" rx="1.6"></rect><path d="M2.5 19h19"></path><path d="M8.5 8.8l2.4 1.9-2.4 1.9" stroke="#e0453a"></path><path d="M12.6 12.7h2.6" stroke="#e0453a"></path></g></svg> y eso me encaminó a estudiar la carrera de Ingeniería de Sistemas y Telecomunicaciones<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18.61 10.02 L21.05 10.35 L21.05 13.65 L18.61 13.98 L18.07 15.28 L19.57 17.23 L17.23 19.57 L15.28 18.07 L13.98 18.61 L13.65 21.05 L10.35 21.05 L10.02 18.61 L8.72 18.07 L6.77 19.57 L4.43 17.23 L5.93 15.28 L5.39 13.98 L2.95 13.65 L2.95 10.35 L5.39 10.02 L5.93 8.72 L4.43 6.77 L6.77 4.43 L8.72 5.93 L10.02 5.39 L10.35 2.95 L13.65 2.95 L13.98 5.39 L15.28 5.93 L17.23 4.43 L19.57 6.77 L18.07 8.72 Z"></path><circle cx="12" cy="12" r="2.7" stroke="#e0453a"></circle></g></svg> en la Universidad de Córdoba. Otra pasión que comparto es el fútbol<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8l3.2 2.3-1.2 3.8h-4L8.8 10.3z" stroke="#e0453a"></path><path d="M12 8V3.2M15.2 10.3l4.4-1.4M14 14.1l2.7 3.6M10 14.1l-2.7 3.6M8.8 10.3L4.4 8.9"></path></g></svg>; soy apasionado a este deporte desde muy pequeño y siempre me he encaminado por la ciencia y análisis detrás de este. Siempre me gustó jugar y organizar plantilla y estrategias, sacar conclusiones y aprender de cada victoria y derrota de mi equipo favorito, el Barcelona<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14v8c0 4-3 7-7 9-4-2-7-5-7-9z"></path><path d="M9.4 6.2v10" stroke="#3b6fd0" stroke-width="2.6"></path><path d="M14.6 6.2v10" stroke="#e0453a" stroke-width="2.6"></path></g></svg>.</p>
-<p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">En la universidad hice <a class="ulink" href="#" onClick="{{goCv}}">el diplomado de aprendizaje automatizado</a> donde aprendí de las bases del machine learning<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8.5" width="14" height="10" rx="2.8"></rect><path d="M12 8.5V5"></path><circle cx="12" cy="3.9" r="1.2" stroke="#e0453a" fill="#e0453a"></circle><path d="M3 12.5v3.2M21 12.5v3.2"></path><circle cx="9.4" cy="12.8" r="0.9" stroke="#e0453a" fill="#e0453a"></circle><circle cx="14.6" cy="12.8" r="0.9" stroke="#e0453a" fill="#e0453a"></circle><path d="M9.5 16h5"></path></g></svg> y análisis de datos con Python, R y SQL, orientados al tratamiento de datos y al uso de herramientas de visualización de datos<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"></path><rect x="7" y="12.5" width="2.6" height="5.5" rx="0.8"></rect><rect x="11.3" y="8.5" width="2.6" height="9.5" rx="0.8" stroke="#e0453a"></rect><rect x="15.6" y="5.5" width="2.6" height="12.5" rx="0.8"></rect></g></svg>. Con la llegada de la IA, mi intención actual es combinar esas dos facetas que más me gustan, darle una utilidad para que vean <a class="ulink" href="#" onClick="{{goLibrary}}">mi trabajo</a>, y que conozcan mi punto de vista y mis conclusiones sobre temas de este hermoso deporte.</p>
+<p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">En la universidad hice <a class="ulink" href="/curriculum" onClick="{{goCv}}">el diplomado de aprendizaje automatizado</a> donde aprendí de las bases del machine learning<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8.5" width="14" height="10" rx="2.8"></rect><path d="M12 8.5V5"></path><circle cx="12" cy="3.9" r="1.2" stroke="#e0453a" fill="#e0453a"></circle><path d="M3 12.5v3.2M21 12.5v3.2"></path><circle cx="9.4" cy="12.8" r="0.9" stroke="#e0453a" fill="#e0453a"></circle><circle cx="14.6" cy="12.8" r="0.9" stroke="#e0453a" fill="#e0453a"></circle><path d="M9.5 16h5"></path></g></svg> y análisis de datos con Python, R y SQL, orientados al tratamiento de datos y al uso de herramientas de visualización de datos<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"></path><rect x="7" y="12.5" width="2.6" height="5.5" rx="0.8"></rect><rect x="11.3" y="8.5" width="2.6" height="9.5" rx="0.8" stroke="#e0453a"></rect><rect x="15.6" y="5.5" width="2.6" height="12.5" rx="0.8"></rect></g></svg>. Con la llegada de la IA, mi intención actual es combinar esas dos facetas que más me gustan, darle una utilidad para que vean <a class="ulink" href="#" onClick="{{goLibrary}}">mi trabajo</a>, y que conozcan mi punto de vista y mis conclusiones sobre temas de este hermoso deporte.</p>
 <p style="margin:0;font-size:19px;line-height:1.75;letter-spacing:-0.005em;color:#18181b;text-align:justify">Mi visión a futuro es aprender y trabajar relacionado a mis dos pasiones. Por eso, he estado actualizándome y aprendiendo los nuevos conocimientos sobre la IA<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.9 5.4 5.4 1.9-5.4 1.9L11 18.1l-1.9-5.4L3.7 10.8l5.4-1.9z"></path><path d="M18.5 15.5v4.5M16.25 17.75h4.5" stroke="#e0453a"></path></g></svg>, automatización, creación de RAG y uso de agentes. Mi gran meta a corta distancia es conseguir una estabilidad económica que me ayude a crecer de forma exponencial como profesional y humano<svg viewBox="0 0 24 24" aria-hidden="true" style="display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.17em;margin:0 2px 0 5px;overflow:visible"><g fill="none" stroke="#18181b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3 2.1 4.2 5.6 4.2 9.6v3.4H7.8v-3.4c0-4 1.2-7.5 4.2-9.6z"></path><path d="M7.8 12.5L4.8 16v2.4l3-1.6M16.2 12.5l3 3.5v2.4l-3-1.6"></path><circle cx="12" cy="9.2" r="1.6" stroke="#e0453a"></circle><path d="M10.4 18.2L12 21.8l1.6-3.6" stroke="#e0453a"></path></g></svg>. Esta es información sobre mí.</p>
 </div>
 <div aria-hidden="true" style="position:relative;flex:0 0 300px;width:300px;height:570px;margin:0 auto">
@@ -262,22 +262,49 @@ nav a>svg{flex:none}
 <button onClick="{{closeDrawer}}" aria-label="Cerrar" style="width:32px;height:32px;border:1px solid #e2e2e6;background:#fff;border-radius:8px;color:#3f3f46;display:inline-flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"></path></svg></button></div>
 <div style="height:190px;box-sizing:border-box;border-radius:10px;border:1px solid #e2e2e6;background:{{drawer.cover}};display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#52525b">{{drawer.coverText}}</div>
 <h2 style="margin:0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-0.02em">{{drawer.title}}</h2>
-<p style="margin:0;font-size:14px;line-height:1.55;color:#3f3f46">{{drawer.intro}}</p>
-<p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Aquí irá el contenido del artículo.</p>
+<p style="margin:0;font-size:19px;line-height:1.3;font-weight:700;letter-spacing:-0.01em;color:#e0453a">Disculpa, estamos trabajando en este artículo <span aria-hidden="true">🚨</span></p>
+<img src="/assets/construccion/en-construccion.webp" alt="Ilustración de una persona trabajando en su computador bajo una lámpara, con un balón de fútbol sobre el escritorio" style="display:block;width:100%;height:auto;border-radius:10px">
+<p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Gracias por tu paciencia. Estamos haciendo algunas mejoras en este artículo y estará listo pronto.</p>
 </aside>
 </div>
 </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1020}}'>
+// La dirección (URL) refleja la vista: /, /acerca-de-mi, /curriculum y /articulos/<nombre>.
+// Un artículo vive en /articulos/<nombre>/articulo.html y se muestra en /articulos/<nombre>.
+const RUTAS = { library: '/', about: '/acerca-de-mi', cv: '/curriculum' };
 class Component extends DCLogic {
   constructor(...args) {
     super(...args);
-    // El artículo (que vive dentro de la página) avisa con este evento cuando se pulsa "Volver atrás".
-    window.addEventListener('articulo:volver', () => {
-      this.setState({ view: 'library', article: null });
+    this.state = Object.assign({}, this.state, this.estadoDe(location.pathname));
+    // Botones "atrás" y "adelante" del navegador.
+    window.addEventListener('popstate', () => {
+      this.setState(this.estadoDe(location.pathname));
       window.scrollTo(0, 0);
     });
+    // El artículo (que vive dentro de la página) avisa con este evento cuando se pulsa "Volver atrás".
+    window.addEventListener('articulo:volver', () => {
+      this.ir({ view: 'library', article: null });
+      window.scrollTo(0, 0);
+    });
+  }
+  rutaDe(view, article) {
+    if (view === 'article' && article) return '/articulos/' + article.split('/')[2];
+    return RUTAS[view] || '/';
+  }
+  estadoDe(path) {
+    const p = path.replace(/\/+$/, '') || '/';
+    const m = p.match(/^\/articulos\/([a-z0-9-]+)$/);
+    if (m) return { view: 'article', article: '/articulos/' + m[1] + '/articulo.html' };
+    const v = Object.keys(RUTAS).find((k) => RUTAS[k] === p);
+    return { view: v || 'library', article: null };
+  }
+  // Cambia de vista y deja la dirección del navegador en sintonía.
+  ir(patch) {
+    this.setState(patch);
+    const ruta = this.rutaDe(patch.view, patch.article);
+    if (location.pathname !== ruta) history.pushState(null, '', ruta);
   }
   renderVals() {
     const grey = '#a1a1aa';
@@ -286,9 +313,13 @@ class Component extends DCLogic {
     const sideHover = !!(this.state && this.state.sideHover);
     const collapsed = !pinned && !sideHover;
     const query = (this.state && this.state.query) || '';
-    const view = (this.state && this.state.view) || 'library';
+    let view = (this.state && this.state.view) || 'library';
     const lang = (this.state && this.state.lang) || 'es';
-    const go = (v) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ view: v }); };
+    const go = (v) => (e) => {
+      if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;
+      if (e && e.preventDefault) e.preventDefault();
+      this.ir({ view: v, article: null });
+    };
     const seg = (on) => on
       ? { bg: '#ffffff', border: '#e2e2e6', color: '#18181b', weight: '600' }
       : { bg: 'transparent', border: 'transparent', color: '#52525b', weight: '500' };
@@ -308,13 +339,11 @@ class Component extends DCLogic {
       { id: 'jg', name: 'Jugadores', color: '#71717a', kind: 'player', count: 0 }
     ];
     const ARTICLES = [
-      { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido con Python, R.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
-      { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico con Python, SQL.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
+      { id: 'a1', title: 'Barcelona vs Real Madrid', intro: 'Reporte de partido.', t: ['ll'], period: '2026', date: '2026-10-26', langs: 'Python, R', type: 'Reporte de partido' },
+      { id: 'a2', title: 'Plan de Luis Enrique', intro: 'Análisis táctico.', t: ['cl', 'l1'], period: '2024 - 2025 y 2025 - 2026', date: '2026-10-12', langs: 'Python, SQL', type: 'Análisis táctico' },
       { id: 'a3', title: 'Predicción Mundial 2026', intro: 'Modelo predictivo con Python.', lead: 'Con 48 selecciones y datos de seis Copas del Mundo, ¿quién llega con el perfil más sólido?', cardLead: 'Con 48 selecciones y datos de seis Copas del Mundo', t: ['mu'], period: '2026', date: '2026-06-04', langs: 'Python', type: 'Modelo predictivo', page: '/articulos/mundial-2026/articulo.html', coverImg: '/articulos/mundial-2026/img/portada.jpg' },
-      { id: 's1', title: 'Artículo de ejemplo 1', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
-      { id: 's2', title: 'Artículo de ejemplo 2', intro: 'Breve introducción del artículo (pendiente).', t: ['cl'] },
-      { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador con Python.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
-      { id: 's4', title: 'Raphinha balón de oro', intro: 'Perfil de jugador con Python, Power BI.', t: ['jg', 'll'], player: 'Raphinha', period: '2024 - 2025', date: '2026-08-15', langs: 'Python, Power BI', type: 'Perfil de jugador' }
+      { id: 's3', title: 'Lamine vs equipos grandes', intro: 'Perfil de jugador.', t: ['jg', 'll'], player: 'Lamine Yamal', period: '2024 - 2025', date: '2026-09-28', langs: 'Python', type: 'Perfil de jugador' },
+      { id: 's4', title: 'Raphinha balón de oro', intro: 'Perfil de jugador.', t: ['jg', 'll'], player: 'Raphinha', period: '2024 - 2025', date: '2026-08-15', langs: 'Python, Power BI', type: 'Perfil de jugador' }
     ];
     T.forEach((t) => { t.count = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).length; });
     const hover = (this.state && this.state.hover) || null;
@@ -323,14 +352,17 @@ class Component extends DCLogic {
     const visible = (this.state && this.state.visible) || ['cl', 'mu', 'll', 'pl', 'bl'];
     const byId = {};
     T.forEach((t) => { byId[t.id] = t; });
+    // Una dirección de artículo que no existe muestra la biblioteca.
+    if (view === 'article' && !ARTICLES.some((a) => a.page === (this.state && this.state.article))) view = 'library';
     const MON = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic'];
     const fmt = (iso) => { const d = iso.split('-'); return d[2] + ' de ' + MON[Number(d[1]) - 1] + ' de ' + d[0]; };
     const openArticle = (a) => (e) => {
       if (e && e.preventDefault) e.preventDefault();
-      this.setState({ view: 'article', article: a.page, open: null });
+      this.ir({ view: 'article', article: a.page, open: null });
       window.scrollTo(0, 0);
     };
-    const recent = ARTICLES.filter((a) => a.date).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
+    // Solo los artículos terminados (los que ya tienen página propia) aparecen en la actividad reciente.
+    const recent = ARTICLES.filter((a) => a.date && a.page).sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0)).slice(0, 5).map((a) => ({
       id: a.id, onOpen: a.page ? openArticle(a) : null, onKey: a.page ? ((e) => { if (e.key === 'Enter' || e.key === ' ') openArticle(a)(e); }) : null, tab: a.page ? '0' : '-1', cursor: a.page ? 'pointer' : 'default', name: a.title, period: a.period, tags: a.t.map((id) => ({ label: byId[id].name, color: byId[id].color })), date: fmt(a.date), langs: a.langs, type: a.type
     }));
     const q = query.trim().toLowerCase();

@@ -16,7 +16,8 @@ manifiesto = json.loads((raiz / "boceto/assets_manifest.json").read_text(encodin
 html = (raiz / "boceto/Main.dc.html").read_text(encoding="utf-8")
 
 for blob_id, ruta in manifiesto.items():
-    html = html.replace(f"/_blob/{blob_id}", ruta)
+    # Rutas absolutas (empiezan con /): así funcionan también en direcciones como /articulos/<nombre>.
+    html = html.replace(f"/_blob/{blob_id}", "/" + ruta)
 
 restos = re.findall(r"/_blob/[0-9a-f]+", html)
 if restos:
@@ -26,7 +27,11 @@ if restos:
 # el navegador no pida un archivo inexistente antes de que support.js las rellene.
 html = html.replace('<img src="{{', '<img data-dc-src="{{')
 
-html = html.replace('src="./support.js"', 'src="support.js"')
+html = html.replace('src="./support.js"', 'src="/support.js"')
+
+relativas = re.findall(r'(?:src|href)="(?:assets/|support\.js)[^"]*"', html)
+if relativas:
+    raise SystemExit(f"Quedan rutas relativas: {sorted(set(relativas))}")
 html = html.replace('<html lang="en">', '<html lang="es">', 1)
 html = html.replace("<title>Portafolio Panel</title>",
                     "<title>Portafolio · Cristian David Miranda Garces</title>", 1)
