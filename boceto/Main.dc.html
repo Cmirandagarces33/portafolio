@@ -409,9 +409,9 @@ class Component extends DCLogic {
     const opened = (this.state && this.state.open) || null;
     // Otros proyectos: carpetas (con su color) y los artículos que tiene cada una.
     const FOLDERS = [
-      { id: 'f1', name: '01. Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [] },
-      { id: 'f2', name: '02. Componentes web', color: '#309848', tint: '#c0d8a8', items: [] },
-      { id: 'f3', name: '03. Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{ id: 'teams-views-desafio', title: 'Teams Views Desafío' }] }
+      { id: 'f1', name: 'Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [] },
+      { id: 'f2', name: 'Componentes web', color: '#309848', tint: '#c0d8a8', items: [] },
+      { id: 'f3', name: 'Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{ id: 'teams-views-desafio', title: 'Teams Views Desafío' }] }
     ];
     const treeOpen = !!(this.state && this.state.pjTree);
     const pjOpen = (this.state && this.state.pjOpen) || { f3: true };
