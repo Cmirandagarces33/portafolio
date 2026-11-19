@@ -462,13 +462,33 @@ class Component extends DCLogic {
     const opened = (this.state && this.state.open) || null;
     // Otros proyectos: carpetas (con su color) y los artículos que tiene cada una.
     const FOLDERS = [
-      { id: 'f1', name: 'Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [] },
-      { id: 'f2', name: 'Componentes web', color: '#309848', tint: '#c0d8a8', items: [] },
+      { id: 'f1', name: 'Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [{
+        id: 'calidad-aire-cordoba', title: 'Calidad del aire en Córdoba',
+        desc: 'Análisis exploratorio de las mediciones diarias de partículas y su relación con la temperatura.',
+        tags: ['Python', 'CSV'], status: 'done', year: '2025',
+        img: '/assets/otros-proyectos/ejemplo-calidad-aire.svg', imgAlt: 'Ilustración de un gráfico de barras'
+      }, {
+        id: 'ventas-tienda-barrio', title: 'Ventas de una tienda de barrio',
+        desc: 'Limpieza de datos, consultas y tablero con los productos más vendidos por mes.',
+        tags: ['Python', 'SQL', 'CSV'], status: 'prod', year: '2025',
+        img: '/assets/otros-proyectos/ejemplo-ventas-tienda.svg', imgAlt: 'Ilustración de un tablero de datos'
+      }] },
+      { id: 'f2', name: 'Componentes web', color: '#309848', tint: '#c0d8a8', items: [{
+        id: 'selector-fechas-accesible', title: 'Selector de fechas accesible',
+        desc: 'Componente reutilizable de calendario, con navegación por teclado y datos de festivos en JSON.',
+        tags: ['JavaScript', 'HTML', 'CSS', 'JSON'], status: 'build', year: '2026',
+        img: '/assets/otros-proyectos/ejemplo-selector-fechas.svg', imgAlt: 'Ilustración de un calendario'
+      }] },
       { id: 'f3', name: 'Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{
         id: 'teams-views-desafio', title: 'Teams Views Desafío',
         desc: 'Página web que consulta la API oficial de Kick para mostrar, en tiempo real, las vistas individuales de cada streamer del Desafío y el total por team, y genera un directorio de atajos para saltar rápido a cada canal.',
         tags: ['JavaScript', 'HTML', 'CSS', 'JSON'], status: 'prod', year: '2026',
         img: '/assets/otros-proyectos/teams-views-desafio.jpg', imgAlt: 'Gráfico de burbujas con las vistas de cada equipo sobre un mapa'
+      }, {
+        id: 'landing-academia-futbol', title: 'Landing de academia de fútbol',
+        desc: 'Página de presentación responsiva para una escuela de fútbol, con horarios y formulario de contacto.',
+        tags: ['HTML', 'CSS', 'JavaScript'], status: 'build', year: '2026',
+        img: '/assets/otros-proyectos/ejemplo-landing-academia.svg', imgAlt: 'Ilustración de una página web'
       }] }
     ];
     // Estado de cada proyecto (etiqueta de color con su mensaje).
