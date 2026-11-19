@@ -40,6 +40,20 @@ nav a>svg{flex:none}
 .pj-item{display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:5px 7px;border:1.5px solid transparent;border-radius:7px;background:transparent;color:#18181b;text-align:left;cursor:pointer;font-size:13px;transition:background .15s,box-shadow .15s}
 .pj-item:hover,.pj-item:focus-visible,.pj-item.on{background:var(--tint);border-color:#1c1917;box-shadow:2px 2px 0 #1c1917;outline:none}
 @media (prefers-reduced-motion:reduce){.pj-chev,.pj-item{transition:none}}
+.pj-nav{display:flex;align-items:center;border:1px solid transparent;border-radius:8px;color:#3f3f46}
+.pj-nav:hover{background:#e9e9ec}
+.pj-nav.on{background:#fff;border-color:#e2e2e6;font-weight:500;color:#18181b}
+.pj-nav.on:hover{background:#fff}
+.pj-nav.on ~ .tip{display:none!important}
+.pj-navlink{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:7px 4px 7px 12px;border-radius:8px;color:inherit}
+.pj-navarrow{flex:none;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;margin-right:6px;border:0;border-radius:6px;background:transparent;color:#3f3f46;cursor:pointer}
+.pj-navarrow:hover{background:#e0e0e4}
+.pj-nav.on .pj-navarrow:hover{background:#efeff2}
+.sttip{opacity:0;visibility:hidden;transform:translateY(4px);pointer-events:none;transition:opacity .15s,transform .15s,visibility .15s}
+.stwrap:hover .sttip,.stwrap:focus-within .sttip{opacity:1;visibility:visible;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.sttip{transition:none}}
+.prow:hover{background:#fafafa}
+.fold[aria-pressed="false"]:hover{background:#f3f3f5!important}
 .row{transition:background .15s}
 .sheet{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .3s,box-shadow .3s,border-color .2s}
 .sheet:focus-visible{outline:2px solid #4a73ad;outline-offset:2px}
@@ -71,7 +85,10 @@ nav a>svg{flex:none}
 <a class="{{aboutCls}}" href="/acerca-de-mi" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Acerca de mí</span></a>
 <a class="{{cvCls}}" href="/curriculum" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Currículum</span></a>
 <div class="tipwrap" style="position:relative">
-<a class="{{projCls}}" href="/otros-proyectos" onClick="{{toggleProjects}}" aria-current="{{projCurrent}}" aria-expanded="{{pjTree}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 22 18" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h4.2c.4 0 .8.2 1.1.5L10.3 4H18.5A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 2 14.5z" fill="#18181b"></path></svg><span class="lbl pj" style="flex:1;white-space:nowrap;font-weight:700;font-size:13.5px">Otros proyectos</span><span class="lbl" style="display:inline-flex"><svg class="pj-chev" style="transform:{{pjChevRot}}" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3f3f46" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"></path></svg></span></a>
+<div class="pj-nav {{projOn}}">
+<a class="pj-navlink" href="/otros-proyectos" onClick="{{goProjects}}" aria-current="{{projCurrent}}" aria-label="Otros proyectos" aria-describedby="tip-otros"><svg width="16" height="16" viewBox="0 0 22 18" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h4.2c.4 0 .8.2 1.1.5L10.3 4H18.5A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 2 14.5z" fill="#18181b"></path></svg><span class="lbl pj" style="flex:1;white-space:nowrap;font-weight:700;font-size:13.5px">Otros proyectos</span></a>
+<button class="pj-navarrow lbl" onClick="{{toggleProjects}}" aria-expanded="{{pjTree}}" aria-label="{{treeLabel}}"><svg class="pj-chev" style="transform:{{pjChevRot}}" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3f3f46" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"></path></svg></button>
+</div>
 <div id="tip-otros" role="tooltip" class="tip" style="position:fixed;left:{{tipLeft}}px;top:auto;--dy:-17px;width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60">
 <span style="position:absolute;left:-5px;top:50%;width:8px;height:8px;margin-top:-4px;background:#fff;border-left:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>
 <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Otros proyectos</div>
@@ -249,7 +266,44 @@ nav a>svg{flex:none}
 <sc-if value="{{isProjects}}" hint-placeholder-val="{{ false }}">
 <!-- OTROS PROYECTOS: el árbol de carpetas está en la barra izquierda; aquí se ve el proyecto elegido -->
 <sc-if value="{{noProject}}" hint-placeholder-val="{{ true }}">
-<section aria-label="Otros proyectos" style="box-sizing:border-box;width:min(560px,100%);background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:28px 22px;text-align:center;font-size:13px;color:#52525b">Elige un proyecto de la lista.</section>
+<!-- OTROS PROYECTOS: lista con buscador, carpetas y estado de cada proyecto -->
+<section aria-label="Otros proyectos" style="box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:12px;overflow:hidden">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:16px 20px">
+<label style="display:flex;align-items:center;gap:9px;padding:7px 12px;border:1px solid #e2e2e6;border-radius:8px;background:#fafafa;color:#52525b;flex:1 1 260px;max-width:380px;min-width:0;box-sizing:border-box"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5L14 14"></path></svg><input type="search" value="{{pjQuery}}" onInput="{{onPjSearch}}" placeholder="Buscar proyectos…" aria-label="Buscar proyectos" style="border:0;background:transparent;outline:none;flex:1;min-width:0;font-family:inherit;font-size:13px;color:#18181b"></label>
+<div role="group" aria-label="Carpetas por etiqueta" style="display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{pjChips}}" as="c" hint-placeholder-count="4">
+<button class="fold" onClick="{{c.onPick}}" aria-pressed="{{c.pressed}}" style="{{c.style}}"><svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="{{c.color}}" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.2c0-.7.5-1.2 1.2-1.2h3.6l1.6 1.7h6c.7 0 1.2.5 1.2 1.2v6.6c0 .7-.5 1.2-1.2 1.2H3.2c-.7 0-1.2-.5-1.2-1.2z" fill="{{c.fill}}"></path></svg><span>{{c.name}}</span><span style="font-size:12px;font-weight:400;color:#71717a">{{c.count}}</span></button>
+</sc-for>
+</div>
+</div>
+<div role="list" aria-label="Lista de proyectos">
+<sc-for list="{{pjRows}}" as="p" hint-placeholder-count="1">
+<article role="listitem" class="prow" style="display:flex;align-items:center;gap:20px;padding:18px 20px;border-top:1px solid #e2e2e6">
+<sc-if value="{{p.hasImg}}" hint-placeholder-val="{{ true }}"><img data-dc-src="{{p.img}}" alt="{{p.imgAlt}}" style="flex:0 0 96px;width:96px;height:96px;display:block;object-fit:cover;border-radius:8px;border:1px solid #e2e2e6;background:#fafafa"></sc-if>
+<sc-if value="{{p.noImg}}" hint-placeholder-val="{{ false }}"><div style="flex:0 0 96px;width:96px;height:96px;border-radius:8px;border:1px solid #e2e2e6;background:{{p.fallbackBg}}"></div></sc-if>
+<div style="flex:1 1 auto;min-width:0">
+<div style="font-size:19px;line-height:1.3;font-weight:500;letter-spacing:-0.01em;color:#18181b">{{p.title}}</div>
+<div style="margin-top:3px;font-size:14px;line-height:1.5;color:#52525b">{{p.desc}}</div>
+<div style="margin-top:9px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:13px;color:#52525b">
+<span style="display:inline-flex;align-items:center;gap:7px;color:#18181b"><i style="width:8px;height:8px;border-radius:50%;background:{{p.color}}"></i><span>{{p.folder}}</span></span>
+<span style="display:inline-flex;flex-wrap:wrap;gap:6px"><sc-for list="{{p.tags}}" as="tg" hint-placeholder-count="3"><span style="padding:2px 8px;border-radius:6px;border:1px solid #cfcfd6;background:#efeff2;font-size:12px;color:#27272a">{{tg}}</span></sc-for></span>
+<span class="stwrap" style="position:relative;display:inline-flex">
+<span tabindex="0" aria-describedby="st-{{p.id}}" style="display:inline-flex;align-items:center;gap:7px;padding:2px 10px 2px 8px;border-radius:999px;border:1px solid {{p.stBorder}};background:{{p.stBg}};font-size:12.5px;font-weight:500;color:#18181b;cursor:default"><i style="width:7px;height:7px;border-radius:50%;background:{{p.stColor}}"></i><span>{{p.stLabel}}</span></span>
+<span id="st-{{p.id}}" role="tooltip" class="sttip" style="position:absolute;left:0;bottom:calc(100% + 9px);width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60;text-align:left">
+<span style="position:absolute;left:22px;bottom:-5px;width:8px;height:8px;background:#fff;border-right:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>
+<span style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px"><i style="width:7px;height:7px;border-radius:50%;background:{{p.stColor}}"></i><span>{{p.stLabel}}</span></span>
+<span style="display:block;font-size:12px;line-height:1.5;font-weight:400;color:#52525b">{{p.stDesc}}</span>
+</span>
+</span>
+<span>{{p.year}}</span>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{pjEmpty}}" hint-placeholder-val="{{ false }}"><div style="border-top:1px solid #e2e2e6;padding:28px 20px;text-align:center;color:#52525b;font-size:13px">No hay proyectos que coincidan con la búsqueda.</div></sc-if>
+<div style="border-top:1px solid #e2e2e6"></div>
+</section>
 </sc-if>
 <sc-if value="{{hasProject}}" hint-placeholder-val="{{ false }}">
 <section aria-label="Proyecto" style="box-sizing:border-box;width:min(560px,100%);background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:14px">
@@ -354,13 +408,12 @@ class Component extends DCLogic {
     const m = p.match(/^\/articulos\/([a-z0-9-]+)$/);
     if (m) return { view: 'article', article: '/articulos/' + m[1] + '/articulo.html', pjSel: null };
     const mp = p.match(/^\/otros-proyectos\/([a-z0-9-]+)$/);
-    if (mp) return { view: 'projects', article: null, pjSel: mp[1], pjTree: true };
+    if (mp) return { view: 'projects', article: null, pjSel: mp[1] };
     const v = Object.keys(RUTAS).find((k) => RUTAS[k] === p);
-    return Object.assign({ view: v || 'library', article: null, pjSel: null }, v === 'projects' ? { pjTree: true } : {});
+    return { view: v || 'library', article: null, pjSel: null };
   }
   // Cambia de vista y deja la dirección del navegador en sintonía.
   ir(patch) {
-    if (patch.view === 'projects') patch = Object.assign({}, patch, { pjTree: true });
     this.setState(patch);
     const ruta = this.rutaDe(patch.view, patch.article, patch.pjSel);
     if (location.pathname !== ruta) history.pushState(null, '', ruta);
@@ -411,11 +464,41 @@ class Component extends DCLogic {
     const FOLDERS = [
       { id: 'f1', name: 'Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [] },
       { id: 'f2', name: 'Componentes web', color: '#309848', tint: '#c0d8a8', items: [] },
-      { id: 'f3', name: 'Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{ id: 'teams-views-desafio', title: 'Teams Views Desafío' }] }
+      { id: 'f3', name: 'Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{
+        id: 'teams-views-desafio', title: 'Teams Views Desafío',
+        desc: 'Página web que consulta la API oficial de Kick para mostrar, en tiempo real, las vistas individuales de cada streamer del Desafío y el total por team, y genera un directorio de atajos para saltar rápido a cada canal.',
+        tags: ['JavaScript', 'HTML', 'CSS', 'JSON'], status: 'prod', year: '2026',
+        img: '/assets/otros-proyectos/teams-views-desafio.jpg', imgAlt: 'Gráfico de burbujas con las vistas de cada equipo sobre un mapa'
+      }] }
     ];
+    // Estado de cada proyecto (etiqueta de color con su mensaje).
+    const STATUS = {
+      prod: { label: 'En producción', color: '#2f9e4a', desc: 'Versión estable desplegada. Recibe actualizaciones activas: corrección de errores, mejoras y mantenimiento.' },
+      build: { label: 'En construcción', color: '#e8832a', desc: 'En desarrollo activo. Aún no tiene una versión estable: se implementan funcionalidades y su estructura puede cambiar.' },
+      done: { label: 'Ciclo terminado', color: '#d64545', desc: 'Ciclo de desarrollo cerrado. Se conserva como referencia y ya no recibe actualizaciones ni mantenimiento.' }
+    };
     const treeOpen = !!(this.state && this.state.pjTree);
     const pjOpen = (this.state && this.state.pjOpen) || { f3: true };
     const selId = (this.state && this.state.pjSel) || null;
+    const pjQ = ((this.state && this.state.pjQuery) || '').trim().toLowerCase();
+    const pjFolder = (this.state && this.state.pjFolder) || '';
+    const pjAll = [];
+    FOLDERS.forEach((f) => f.items.forEach((it) => pjAll.push({ f: f, it: it, st: STATUS[it.status] || STATUS.build })));
+    const pjRows = pjAll
+      .filter((x) => (!pjFolder || x.f.id === pjFolder) && (!pjQ || [x.it.title, x.it.desc, x.f.name, (x.it.tags || []).join(' '), x.st.label, x.it.year].join(' ').toLowerCase().indexOf(pjQ) > -1))
+      .map((x) => ({
+        id: x.it.id, title: x.it.title, desc: x.it.desc || '', tags: x.it.tags || [], year: x.it.year || '', folder: x.f.name, color: x.f.color,
+        hasImg: !!x.it.img, noImg: !x.it.img, img: x.it.img || '', imgAlt: x.it.imgAlt || '', fallbackBg: x.f.color + '24',
+        stLabel: x.st.label, stDesc: x.st.desc, stColor: x.st.color, stBorder: x.st.color + '55', stBg: x.st.color + '1a'
+      }));
+    const chipStyle = (on, c) => 'display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 9px;border-radius:8px;border:1px solid ' + (on ? c : '#e2e2e6') + ';background:' + (on ? c + '1f' : '#ffffff') + ';font-size:13px;font-weight:500;color:#18181b';
+    const pjChips = [{ id: '', name: 'Todos', color: '#52525b', count: pjAll.length }].concat(['f3', 'f1', 'f2'].map((id) => {
+      const f = FOLDERS.filter((x) => x.id === id)[0];
+      return { id: id, name: f.name, color: f.color, count: f.items.length };
+    })).map((c) => {
+      const on = pjFolder === c.id;
+      return { name: c.name, count: c.count, color: c.color, fill: c.color + '33', style: chipStyle(on, c.color), pressed: on ? 'true' : 'false', onPick: () => this.setState({ pjFolder: c.id }) };
+    });
     let projSel = null;
     FOLDERS.forEach((f) => f.items.forEach((it) => { if (it.id === selId) projSel = { title: it.title, folder: f.name.replace(/^\d+\.\s*/, ''), color: f.color }; }));
     const MAX = 5;
@@ -515,16 +598,14 @@ class Component extends DCLogic {
       isCv: view === 'cv',
       isAbout: view === 'about',
       isProjects: view === 'projects',
-      projCls: view === 'projects' ? 'nav nav-on' : 'nav',
+      projOn: view === 'projects' ? 'on' : '',
       projCurrent: view === 'projects' ? 'page' : 'false',
       pjTree: treeOpen,
       pjChevRot: treeOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-      // Abre o cierra las carpetas debajo del botón, sin cambiar de vista.
-      toggleProjects: (e) => {
-        if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;
-        if (e && e.preventDefault) e.preventDefault();
-        this.setState({ pjTree: !treeOpen });
-      },
+      treeLabel: treeOpen ? 'Ocultar las carpetas de Otros proyectos' : 'Mostrar las carpetas de Otros proyectos',
+      // La flecha abre y cierra las carpetas; el nombre abre la sección.
+      toggleProjects: () => this.setState({ pjTree: !treeOpen }),
+      goProjects: go('projects'),
       aboutCls: view === 'about' ? 'nav nav-on' : 'nav',
       aboutCurrent: view === 'about' ? 'page' : 'false',
       goAbout: go('about'),
@@ -566,6 +647,11 @@ class Component extends DCLogic {
       proj: projSel || { title: '', folder: '', color: '#a1a1aa' },
       hasProject: !!projSel,
       noProject: !projSel,
+      pjQuery: (this.state && this.state.pjQuery) || '',
+      onPjSearch: (e) => this.setState({ pjQuery: e.target.value }),
+      pjChips: pjChips,
+      pjRows: pjRows,
+      pjEmpty: pjRows.length === 0,
       legend: legend,
       articleRows: rows,
       noResults: rows.length === 0,
