@@ -32,6 +32,14 @@ nav a>svg{flex:none}
 .tip{opacity:0;visibility:hidden;transform:translateY(calc(-50% + var(--dy,0px))) translateX(-4px);pointer-events:none;transition:opacity .15s,transform .15s,visibility .15s,left .35s ease-in-out}
 .tipwrap:hover .tip,.tipwrap:has(:focus-visible) .tip{opacity:1;visibility:visible;transform:translateY(calc(-50% + var(--dy,0px))) translateX(0)}
 @media (prefers-reduced-motion:reduce){.tip,.sidebar,.lbl,.ico{transition:none!important}}
+.pj{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.pj button{font-family:inherit}
+.pj-folder{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;padding:6px 4px;border:0;background:transparent;border-radius:7px;cursor:pointer;text-align:left;color:#18181b;font-size:12px}
+.pj-folder:hover{background:#e9e9ec}
+.pj-chev{flex:none;transition:transform .2s ease}
+.pj-item{display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;padding:5px 7px;border:1.5px solid transparent;border-radius:7px;background:transparent;color:#18181b;text-align:left;cursor:pointer;font-size:12px;transition:background .15s,box-shadow .15s}
+.pj-item:hover,.pj-item:focus-visible,.pj-item.on{background:var(--tint);border-color:#1c1917;box-shadow:2px 2px 0 #1c1917;outline:none}
+@media (prefers-reduced-motion:reduce){.pj-chev,.pj-item{transition:none}}
 .row{transition:background .15s}
 .sheet{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .3s,box-shadow .3s,border-color .2s}
 .sheet:focus-visible{outline:2px solid #4a73ad;outline-offset:2px}
@@ -63,19 +71,51 @@ nav a>svg{flex:none}
 <a class="{{aboutCls}}" href="/acerca-de-mi" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Acerca de mí</span></a>
 <a class="{{cvCls}}" href="/curriculum" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Currículum</span></a>
 <div class="tipwrap" style="position:relative">
-<a class="nav" href="#" onClick="{{noNav}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Otros proyectos</span></a>
+<a class="{{projCls}}" href="/otros-proyectos" onClick="{{goProjects}}" aria-current="{{projCurrent}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Otros proyectos</span></a>
 <div id="tip-otros" role="tooltip" class="tip" style="position:fixed;left:{{tipLeft}}px;top:auto;--dy:-17px;width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60">
 <span style="position:absolute;left:-5px;top:50%;width:8px;height:8px;margin-top:-4px;background:#fff;border-left:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>
 <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Otros proyectos</div>
 <div style="font-size:12px;line-height:1.5;color:#52525b">Proyectos de ingeniería ajenos al fútbol: desarrollo de software y aplicaciones web, ciencia de datos, análisis de datos y big data.</div>
 </div>
 </div>
+<sc-if value="{{isProjects}}" hint-placeholder-val="{{ false }}">
+<div class="pj lbl" aria-label="Proyectos" style="display:flex;flex-direction:column;gap:1px;margin-top:2px">
+<div style="display:flex;align-items:center;gap:9px;padding:8px 4px 10px"><svg width="24" height="20" viewBox="0 0 22 18" aria-hidden="true" style="flex:none"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h4.2c.4 0 .8.2 1.1.5L10.3 4H18.5A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 2 14.5z" fill="#18181b"></path></svg><span style="font-size:14px;font-weight:700;letter-spacing:-0.01em;white-space:nowrap;color:#18181b">Otros proyectos</span></div>
+<sc-for list="{{folders}}" as="f" hint-placeholder-count="3">
+<div>
+<button class="pj-folder" onClick="{{f.onToggle}}" aria-expanded="{{f.isOpen}}">
+<svg class="pj-chev" style="transform:{{f.chevRot}}" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3f3f46" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"></path></svg>
+<svg width="20" height="17" viewBox="0 0 22 18" aria-hidden="true" style="flex:none"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h4.2c.4 0 .8.2 1.1.5L10.3 4H18.5A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 2 14.5z" fill="{{f.color}}"></path></svg>
+<span style="flex:1;min-width:0;font-weight:700;white-space:nowrap">{{f.name}}</span>
+<span style="font-size:11px;color:#8a8478">{{f.count}}</span>
+</button>
+<sc-if value="{{f.isOpen}}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;margin-left:10px;padding:1px 0 3px">
+<span style="position:absolute;left:0;top:0;bottom:15px;width:1px;background:#d8d2c6"></span>
+<sc-for list="{{f.items}}" as="it" hint-placeholder-count="1">
+<div style="position:relative;padding:1px 0">
+<span style="position:absolute;left:0;top:50%;width:12px;height:1px;background:#d8d2c6"></span>
+<div style="margin-left:16px"><button class="{{it.cls}}" style="--tint:{{f.tint}}" onClick="{{it.onOpen}}" aria-current="{{it.current}}">
+<svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M4 2.5h6.5L14 6v9a.5.5 0 0 1-.5.5h-9.5a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5z"></path><path d="M10.5 2.5V6H14"></path></svg>
+<span style="flex:1;min-width:0;font-weight:500;white-space:nowrap">{{it.title}}</span>
+</button></div>
+</div>
+</sc-for>
+<sc-if value="{{f.empty}}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;padding:1px 0"><span style="position:absolute;left:0;top:50%;width:12px;height:1px;background:#d8d2c6"></span><div style="margin-left:16px;padding:5px 7px;font-size:11.5px;color:#8a8478;white-space:nowrap">Sin artículos aún</div></div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
 </nav>
 
 <div style="flex:1;min-height:20px"></div>
 
 <div style="display:grid;align-items:end">
-<div class="lbl" style="grid-area:1/1;width:203px;box-sizing:border-box;display:flex;flex-direction:column;gap:11px;padding:2px 4px 4px">
+<div class="lbl" style="grid-area:1/1;width:100%;min-width:203px;box-sizing:border-box;display:flex;flex-direction:column;gap:11px;padding:2px 4px 4px">
 <div style="position:relative;display:flex;justify-content:center;align-items:center;height:94px">
 <div style="position:absolute;left:-12px;right:-12px;top:50%;height:1px;background:#d4d4d8"></div>
 <div style="position:relative;border-radius:50%;background:#f3f3f5;padding:6px">
@@ -207,6 +247,22 @@ nav a>svg{flex:none}
 <div data-estatico="1" data-cargar="{{articleSrc}}" style="min-width:0"><div style="padding:22px 10px;font-size:13px;color:#52525b">Cargando artículo…</div></div>
 </sc-if>
 
+<sc-if value="{{isProjects}}" hint-placeholder-val="{{ false }}">
+<!-- OTROS PROYECTOS: el árbol de carpetas está en la barra izquierda; aquí se ve el proyecto elegido -->
+<sc-if value="{{noProject}}" hint-placeholder-val="{{ true }}">
+<section aria-label="Otros proyectos" style="box-sizing:border-box;width:min(560px,100%);background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:28px 22px;text-align:center;font-size:13px;color:#52525b">Elige un proyecto de la lista.</section>
+</sc-if>
+<sc-if value="{{hasProject}}" hint-placeholder-val="{{ false }}">
+<section aria-label="Proyecto" style="box-sizing:border-box;width:min(560px,100%);background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:14px">
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:#3f3f46;background:#fff;border:1px solid #d4d4d8;border-radius:999px;padding:2px 9px"><span style="width:7px;height:7px;border-radius:50%;background:{{proj.color}}"></span>{{proj.folder}}</span>
+<h2 style="margin:0;font-size:22px;line-height:1.25;font-weight:600;letter-spacing:-0.02em">{{proj.title}}</h2>
+<p style="margin:0;font-size:19px;line-height:1.3;font-weight:700;letter-spacing:-0.01em;color:#e0453a">Disculpa, estamos trabajando en este artículo <span aria-hidden="true">🚨</span></p>
+<img src="/assets/construccion/en-construccion.webp" alt="Ilustración de una persona trabajando en su computador bajo una lámpara, con un balón de fútbol sobre el escritorio" style="display:block;width:100%;height:auto;border-radius:10px">
+<p style="margin:0;font-size:13px;line-height:1.55;color:#52525b">Gracias por tu paciencia. Estamos haciendo algunas mejoras en este artículo y estará listo pronto.</p>
+</section>
+</sc-if>
+</sc-if>
+
 <sc-if value="{{isAbout}}" hint-placeholder-val="{{ false }}">
 <!-- ABOUT -->
 <section aria-label="Acerca de mí" style="box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:12px;padding:14px">
@@ -273,7 +329,7 @@ nav a>svg{flex:none}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1020}}'>
 // La dirección (URL) refleja la vista: /, /acerca-de-mi, /curriculum y /articulos/<nombre>.
 // Un artículo vive en /articulos/<nombre>/articulo.html y se muestra en /articulos/<nombre>.
-const RUTAS = { library: '/', about: '/acerca-de-mi', cv: '/curriculum' };
+const RUTAS = { library: '/', about: '/acerca-de-mi', cv: '/curriculum', projects: '/otros-proyectos' };
 class Component extends DCLogic {
   constructor(...args) {
     super(...args);
@@ -285,25 +341,28 @@ class Component extends DCLogic {
     });
     // El artículo (que vive dentro de la página) avisa con este evento cuando se pulsa "Volver atrás".
     window.addEventListener('articulo:volver', () => {
-      this.ir({ view: 'library', article: null });
+      this.ir({ view: 'library', article: null, pjSel: null });
       window.scrollTo(0, 0);
     });
   }
-  rutaDe(view, article) {
+  rutaDe(view, article, pjSel) {
     if (view === 'article' && article) return '/articulos/' + article.split('/')[2];
+    if (view === 'projects' && pjSel) return '/otros-proyectos/' + pjSel;
     return RUTAS[view] || '/';
   }
   estadoDe(path) {
     const p = path.replace(/\/+$/, '') || '/';
     const m = p.match(/^\/articulos\/([a-z0-9-]+)$/);
-    if (m) return { view: 'article', article: '/articulos/' + m[1] + '/articulo.html' };
+    if (m) return { view: 'article', article: '/articulos/' + m[1] + '/articulo.html', pjSel: null };
+    const mp = p.match(/^\/otros-proyectos\/([a-z0-9-]+)$/);
+    if (mp) return { view: 'projects', article: null, pjSel: mp[1] };
     const v = Object.keys(RUTAS).find((k) => RUTAS[k] === p);
-    return { view: v || 'library', article: null };
+    return { view: v || 'library', article: null, pjSel: null };
   }
   // Cambia de vista y deja la dirección del navegador en sintonía.
   ir(patch) {
     this.setState(patch);
-    const ruta = this.rutaDe(patch.view, patch.article);
+    const ruta = this.rutaDe(patch.view, patch.article, patch.pjSel);
     if (location.pathname !== ruta) history.pushState(null, '', ruta);
   }
   renderVals() {
@@ -318,7 +377,7 @@ class Component extends DCLogic {
     const go = (v) => (e) => {
       if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;
       if (e && e.preventDefault) e.preventDefault();
-      this.ir({ view: v, article: null });
+      this.ir({ view: v, article: null, pjSel: null });
     };
     const seg = (on) => on
       ? { bg: '#ffffff', border: '#e2e2e6', color: '#18181b', weight: '600' }
@@ -348,6 +407,16 @@ class Component extends DCLogic {
     T.forEach((t) => { t.count = ARTICLES.filter((a) => a.t.indexOf(t.id) > -1).length; });
     const hover = (this.state && this.state.hover) || null;
     const opened = (this.state && this.state.open) || null;
+    // Otros proyectos: carpetas (con su color) y los artículos que tiene cada una.
+    const FOLDERS = [
+      { id: 'f1', name: '01. Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [] },
+      { id: 'f2', name: '02. Componentes web', color: '#309848', tint: '#c0d8a8', items: [] },
+      { id: 'f3', name: '03. Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{ id: 'teams-views-desafio', title: 'Teams Views Desafío' }] }
+    ];
+    const pjOpen = (this.state && this.state.pjOpen) || { f3: true };
+    const selId = (this.state && this.state.pjSel) || null;
+    let projSel = null;
+    FOLDERS.forEach((f) => f.items.forEach((it) => { if (it.id === selId) projSel = { title: it.title, folder: f.name.replace(/^\d+\.\s*/, ''), color: f.color }; }));
     const MAX = 5;
     const visible = (this.state && this.state.visible) || ['cl', 'mu', 'll', 'pl', 'bl'];
     const byId = {};
@@ -424,6 +493,15 @@ class Component extends DCLogic {
     });
     const blank = { title: '', intro: '', lead: '', hasLead: false, cardIntro: '', tag: '', color: '#a1a1aa', cover: 'none', coverText: '', chips: [], cardChips: [] };
     const pv = hover ? infoOf(hover.id, hover.tid) : null;
+    const folders = FOLDERS.map((f) => ({
+      name: f.name, color: f.color, tint: f.tint, count: f.items.length,
+      isOpen: !!pjOpen[f.id], chevRot: pjOpen[f.id] ? 'rotate(90deg)' : 'rotate(0deg)', empty: f.items.length === 0,
+      onToggle: () => this.setState({ pjOpen: Object.assign({}, pjOpen, { [f.id]: !pjOpen[f.id] }) }),
+      items: f.items.map((it) => ({
+        title: it.title, cls: it.id === selId && projSel ? 'pj-item on' : 'pj-item', current: it.id === selId && projSel ? 'page' : 'false',
+        onOpen: () => this.ir({ view: 'projects', article: null, pjSel: it.id })
+      }))
+    }));
     const dr = opened ? infoOf(opened.id, opened.tid) : null;
     const legend = T.filter((t) => visible.indexOf(t.id) === -1).map((t) => ({
       ...shape(t),
@@ -435,16 +513,19 @@ class Component extends DCLogic {
       articleSrc: (this.state && this.state.article) || '',
       isCv: view === 'cv',
       isAbout: view === 'about',
+      isProjects: view === 'projects',
+      projCls: view === 'projects' ? 'nav nav-on' : 'nav',
+      projCurrent: view === 'projects' ? 'page' : 'false',
+      goProjects: go('projects'),
       aboutCls: view === 'about' ? 'nav nav-on' : 'nav',
       aboutCurrent: view === 'about' ? 'page' : 'false',
       goAbout: go('about'),
-      pageTitle: view === 'cv' ? 'Currículum' : (view === 'about' ? 'Acerca de mí' : 'Biblioteca de artículos'),
+      pageTitle: view === 'cv' ? 'Currículum' : (view === 'about' ? 'Acerca de mí' : (view === 'projects' ? 'Otros proyectos' : 'Biblioteca de artículos')),
       panelCls: (view === 'library' || view === 'article') ? 'nav nav-on' : 'nav',
       cvCls: view === 'cv' ? 'nav nav-on' : 'nav',
       panelCurrent: (view === 'library' || view === 'article') ? 'page' : 'false',
       cvCurrent: view === 'cv' ? 'page' : 'false',
       goLibrary: go('library'),
-      noNav: (e) => { if (e && e.preventDefault) e.preventDefault(); },
       goCv: go('cv'),
       showEs: () => this.setState({ lang: 'es' }),
       showEn: () => this.setState({ lang: 'en' }),
@@ -456,8 +537,9 @@ class Component extends DCLogic {
       enDisplay: lang === 'en' ? 'block' : 'none',
       expanded: !collapsed,
       collapsed: collapsed,
-      sideWidth: collapsed ? '61px' : '224px',
-      tipLeft: collapsed ? 65 : 228,
+      // Barra expandida: 224 px, y 252 px en Otros proyectos (el árbol necesita más ancho).
+      sideWidth: collapsed ? '61px' : (view === 'projects' ? '252px' : '224px'),
+      tipLeft: collapsed ? 65 : (view === 'projects' ? 256 : 228),
       pinned: pinned,
       sideCls: collapsed ? 'is-collapsed' : '',
       toggleLabel: pinned ? 'Soltar barra lateral' : 'Fijar barra lateral',
@@ -472,6 +554,10 @@ class Component extends DCLogic {
       drawer: dr || blank,
       drawerOpen: !!dr,
       closeDrawer: () => this.setState({ open: null }),
+      folders: folders,
+      proj: projSel || { title: '', folder: '', color: '#a1a1aa' },
+      hasProject: !!projSel,
+      noProject: !projSel,
       legend: legend,
       articleRows: rows,
       noResults: rows.length === 0,
