@@ -71,16 +71,15 @@ nav a>svg{flex:none}
 <a class="{{aboutCls}}" href="/acerca-de-mi" onClick="{{goAbout}}" aria-current="{{aboutCurrent}}" aria-label="Acerca de mí" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="9" cy="6" r="3"></circle><path d="M3 15.5c.4-3 2.9-4.5 6-4.5s5.6 1.5 6 4.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Acerca de mí</span></a>
 <a class="{{cvCls}}" href="/curriculum" onClick="{{goCv}}" aria-current="{{cvCurrent}}" aria-label="Currículum" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M4 2.5h6.5L14 6v9.5H4z"></path><path d="M10.5 2.5V6H14"></path><circle cx="9" cy="9.3" r="1.5"></circle><path d="M6.3 13.2c.3-1.2 1.4-1.9 2.7-1.9s2.4.7 2.7 1.9"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Currículum</span></a>
 <div class="tipwrap" style="position:relative">
-<a class="{{projCls}}" href="/otros-proyectos" onClick="{{goProjects}}" aria-current="{{projCurrent}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 5L2.5 9l4 4M11.5 5l4 4-4 4M10.2 3.5L7.8 14.5"></path></svg><span class="lbl" style="flex:1;white-space:nowrap">Otros proyectos</span></a>
+<a class="{{projCls}}" href="/otros-proyectos" onClick="{{toggleProjects}}" aria-current="{{projCurrent}}" aria-expanded="{{pjTree}}" aria-label="Otros proyectos" aria-describedby="tip-otros" style="display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:7px 12px;border-radius:8px"><svg width="16" height="16" viewBox="0 0 22 18" aria-hidden="true"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h4.2c.4 0 .8.2 1.1.5L10.3 4H18.5A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 2 14.5z" fill="#18181b"></path></svg><span class="lbl pj" style="flex:1;white-space:nowrap;font-weight:700;font-size:12.5px">Otros proyectos</span><span class="lbl" style="display:inline-flex"><svg class="pj-chev" style="transform:{{pjChevRot}}" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#3f3f46" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"></path></svg></span></a>
 <div id="tip-otros" role="tooltip" class="tip" style="position:fixed;left:{{tipLeft}}px;top:auto;--dy:-17px;width:270px;box-sizing:border-box;background:#fff;border:1px solid #e2e2e6;border-radius:10px;box-shadow:0 10px 28px rgba(24,24,27,0.14);padding:10px 12px;z-index:60">
 <span style="position:absolute;left:-5px;top:50%;width:8px;height:8px;margin-top:-4px;background:#fff;border-left:1px solid #e2e2e6;border-bottom:1px solid #e2e2e6;transform:rotate(45deg)"></span>
 <div style="font-size:12px;font-weight:600;color:#18181b;margin-bottom:4px">Otros proyectos</div>
 <div style="font-size:12px;line-height:1.5;color:#52525b">Proyectos de ingeniería ajenos al fútbol: desarrollo de software y aplicaciones web, ciencia de datos, análisis de datos y big data.</div>
 </div>
 </div>
-<sc-if value="{{isProjects}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{pjTree}}" hint-placeholder-val="{{ false }}">
 <div class="pj lbl" aria-label="Proyectos" style="display:flex;flex-direction:column;gap:1px;margin-top:2px">
-<div style="display:flex;align-items:center;gap:9px;padding:8px 4px 10px"><svg width="24" height="20" viewBox="0 0 22 18" aria-hidden="true" style="flex:none"><path d="M2 3.5A1.5 1.5 0 0 1 3.5 2h4.2c.4 0 .8.2 1.1.5L10.3 4H18.5A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 2 14.5z" fill="#18181b"></path></svg><span style="font-size:14px;font-weight:700;letter-spacing:-0.01em;white-space:nowrap;color:#18181b">Otros proyectos</span></div>
 <sc-for list="{{folders}}" as="f" hint-placeholder-count="3">
 <div>
 <button class="pj-folder" onClick="{{f.onToggle}}" aria-expanded="{{f.isOpen}}">
@@ -355,12 +354,13 @@ class Component extends DCLogic {
     const m = p.match(/^\/articulos\/([a-z0-9-]+)$/);
     if (m) return { view: 'article', article: '/articulos/' + m[1] + '/articulo.html', pjSel: null };
     const mp = p.match(/^\/otros-proyectos\/([a-z0-9-]+)$/);
-    if (mp) return { view: 'projects', article: null, pjSel: mp[1] };
+    if (mp) return { view: 'projects', article: null, pjSel: mp[1], pjTree: true };
     const v = Object.keys(RUTAS).find((k) => RUTAS[k] === p);
-    return { view: v || 'library', article: null, pjSel: null };
+    return Object.assign({ view: v || 'library', article: null, pjSel: null }, v === 'projects' ? { pjTree: true } : {});
   }
   // Cambia de vista y deja la dirección del navegador en sintonía.
   ir(patch) {
+    if (patch.view === 'projects') patch = Object.assign({}, patch, { pjTree: true });
     this.setState(patch);
     const ruta = this.rutaDe(patch.view, patch.article, patch.pjSel);
     if (location.pathname !== ruta) history.pushState(null, '', ruta);
@@ -413,6 +413,7 @@ class Component extends DCLogic {
       { id: 'f2', name: '02. Componentes web', color: '#309848', tint: '#c0d8a8', items: [] },
       { id: 'f3', name: '03. Desarrollo Web', color: '#6850c0', tint: '#d9d0f2', items: [{ id: 'teams-views-desafio', title: 'Teams Views Desafío' }] }
     ];
+    const treeOpen = !!(this.state && this.state.pjTree);
     const pjOpen = (this.state && this.state.pjOpen) || { f3: true };
     const selId = (this.state && this.state.pjSel) || null;
     let projSel = null;
@@ -516,7 +517,14 @@ class Component extends DCLogic {
       isProjects: view === 'projects',
       projCls: view === 'projects' ? 'nav nav-on' : 'nav',
       projCurrent: view === 'projects' ? 'page' : 'false',
-      goProjects: go('projects'),
+      pjTree: treeOpen,
+      pjChevRot: treeOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+      // Abre o cierra las carpetas debajo del botón, sin cambiar de vista.
+      toggleProjects: (e) => {
+        if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;
+        if (e && e.preventDefault) e.preventDefault();
+        this.setState({ pjTree: !treeOpen });
+      },
       aboutCls: view === 'about' ? 'nav nav-on' : 'nav',
       aboutCurrent: view === 'about' ? 'page' : 'false',
       goAbout: go('about'),
@@ -537,9 +545,9 @@ class Component extends DCLogic {
       enDisplay: lang === 'en' ? 'block' : 'none',
       expanded: !collapsed,
       collapsed: collapsed,
-      // Barra expandida: 224 px, y 252 px en Otros proyectos (el árbol necesita más ancho).
-      sideWidth: collapsed ? '61px' : (view === 'projects' ? '252px' : '224px'),
-      tipLeft: collapsed ? 65 : (view === 'projects' ? 256 : 228),
+      // Barra expandida: 224 px, y 252 px con las carpetas de Otros proyectos abiertas (necesitan más ancho).
+      sideWidth: collapsed ? '61px' : (treeOpen ? '252px' : '224px'),
+      tipLeft: collapsed ? 65 : (treeOpen ? 256 : 228),
       pinned: pinned,
       sideCls: collapsed ? 'is-collapsed' : '',
       toggleLabel: pinned ? 'Soltar barra lateral' : 'Fijar barra lateral',
