@@ -296,6 +296,7 @@ nav a>svg{flex:none}
 </span>
 </span>
 <span>{{p.year}}</span>
+<sc-if value="{{p.ejemplo}}" hint-placeholder-val="{{ false }}"><span style="padding:1px 8px;border-radius:6px;border:1px dashed #a1a1aa;font-size:12px;color:#71717a">Ejemplo</span></sc-if>
 </div>
 </div>
 </article>
@@ -463,18 +464,18 @@ class Component extends DCLogic {
     // Otros proyectos: carpetas (con su color) y los artículos que tiene cada una.
     const FOLDERS = [
       { id: 'f1', name: 'Análisis de datos', color: '#c8a068', tint: '#ecdcba', items: [{
-        id: 'calidad-aire-cordoba', title: 'Calidad del aire en Córdoba',
+        id: 'calidad-aire-cordoba', ejemplo: true, title: 'Calidad del aire en Córdoba',
         desc: 'Análisis exploratorio de las mediciones diarias de partículas y su relación con la temperatura.',
         tags: ['Python', 'CSV'], status: 'done', year: '2025',
         img: '/assets/otros-proyectos/ejemplo-calidad-aire.svg', imgAlt: 'Ilustración de un gráfico de barras'
       }, {
-        id: 'ventas-tienda-barrio', title: 'Ventas de una tienda de barrio',
+        id: 'ventas-tienda-barrio', ejemplo: true, title: 'Ventas de una tienda de barrio',
         desc: 'Limpieza de datos, consultas y tablero con los productos más vendidos por mes.',
         tags: ['Python', 'SQL', 'CSV'], status: 'prod', year: '2025',
         img: '/assets/otros-proyectos/ejemplo-ventas-tienda.svg', imgAlt: 'Ilustración de un tablero de datos'
       }] },
       { id: 'f2', name: 'Componentes web', color: '#309848', tint: '#c0d8a8', items: [{
-        id: 'selector-fechas-accesible', title: 'Selector de fechas accesible',
+        id: 'selector-fechas-accesible', ejemplo: true, title: 'Selector de fechas accesible',
         desc: 'Componente reutilizable de calendario, con navegación por teclado y datos de festivos en JSON.',
         tags: ['JavaScript', 'HTML', 'CSS', 'JSON'], status: 'build', year: '2026',
         img: '/assets/otros-proyectos/ejemplo-selector-fechas.svg', imgAlt: 'Ilustración de un calendario'
@@ -485,7 +486,7 @@ class Component extends DCLogic {
         tags: ['JavaScript', 'HTML', 'CSS', 'JSON'], status: 'prod', year: '2026',
         img: '/assets/otros-proyectos/teams-views-desafio.jpg', imgAlt: 'Gráfico de burbujas con las vistas de cada equipo sobre un mapa'
       }, {
-        id: 'landing-academia-futbol', title: 'Landing de academia de fútbol',
+        id: 'landing-academia-futbol', ejemplo: true, title: 'Landing de academia de fútbol',
         desc: 'Página de presentación responsiva para una escuela de fútbol, con horarios y formulario de contacto.',
         tags: ['HTML', 'CSS', 'JavaScript'], status: 'build', year: '2026',
         img: '/assets/otros-proyectos/ejemplo-landing-academia.svg', imgAlt: 'Ilustración de una página web'
@@ -497,17 +498,21 @@ class Component extends DCLogic {
       build: { label: 'En construcción', color: '#e8832a', desc: 'En desarrollo activo. Aún no tiene una versión estable: se implementan funcionalidades y su estructura puede cambiar.' },
       done: { label: 'Ciclo terminado', color: '#d64545', desc: 'Ciclo de desarrollo cerrado. Se conserva como referencia y ya no recibe actualizaciones ni mantenimiento.' }
     };
-    const treeOpen = !!(this.state && this.state.pjTree);
-    const pjOpen = (this.state && this.state.pjOpen) || { f3: true };
+    const treeOpen = !(this.state && this.state.pjTree === false);
+    const pjOpen = (this.state && this.state.pjOpen) || {};
     const selId = (this.state && this.state.pjSel) || null;
     const pjQ = ((this.state && this.state.pjQuery) || '').trim().toLowerCase();
     const pjFolder = (this.state && this.state.pjFolder) || '';
     const pjAll = [];
     FOLDERS.forEach((f) => f.items.forEach((it) => pjAll.push({ f: f, it: it, st: STATUS[it.status] || STATUS.build })));
+    // Orden de la lista: primero el proyecto real, luego los ejemplos.
+    const PJ_ORDEN = ['teams-views-desafio', 'landing-academia-futbol', 'calidad-aire-cordoba', 'ventas-tienda-barrio', 'selector-fechas-accesible'];
+    const ordDe = (x) => { const i = PJ_ORDEN.indexOf(x.it.id); return i < 0 ? 99 : i; };
+    pjAll.sort((a, b) => ordDe(a) - ordDe(b));
     const pjRows = pjAll
       .filter((x) => (!pjFolder || x.f.id === pjFolder) && (!pjQ || [x.it.title, x.it.desc, x.f.name, (x.it.tags || []).join(' '), x.st.label, x.it.year].join(' ').toLowerCase().indexOf(pjQ) > -1))
       .map((x) => ({
-        id: x.it.id, title: x.it.title, desc: x.it.desc || '', tags: x.it.tags || [], year: x.it.year || '', folder: x.f.name, color: x.f.color,
+        id: x.it.id, ejemplo: !!x.it.ejemplo, title: x.it.title, desc: x.it.desc || '', tags: x.it.tags || [], year: x.it.year || '', folder: x.f.name, color: x.f.color,
         hasImg: !!x.it.img, noImg: !x.it.img, img: x.it.img || '', imgAlt: x.it.imgAlt || '', fallbackBg: x.f.color + '24',
         stLabel: x.st.label, stDesc: x.st.desc, stColor: x.st.color, stBorder: x.st.color + '55', stBg: x.st.color + '1a'
       }));
@@ -597,15 +602,16 @@ class Component extends DCLogic {
     });
     const blank = { title: '', intro: '', lead: '', hasLead: false, cardIntro: '', tag: '', color: '#a1a1aa', cover: 'none', coverText: '', chips: [], cardChips: [] };
     const pv = hover ? infoOf(hover.id, hover.tid) : null;
-    const folders = FOLDERS.map((f) => ({
-      name: f.name, color: f.color, tint: f.tint, count: f.items.length,
-      isOpen: !!pjOpen[f.id], chevRot: pjOpen[f.id] ? 'rotate(90deg)' : 'rotate(0deg)', empty: f.items.length === 0,
+    // El árbol lateral solo muestra proyectos reales (los ejemplos viven solo en la sección).
+    const folders = FOLDERS.map((f) => ({ f: f, reales: f.items.filter((it) => !it.ejemplo) })).map((fx) => { const f = fx.f; return {
+      name: f.name, color: f.color, tint: f.tint, count: fx.reales.length,
+      isOpen: !!pjOpen[f.id], chevRot: pjOpen[f.id] ? 'rotate(90deg)' : 'rotate(0deg)', empty: fx.reales.length === 0,
       onToggle: () => this.setState({ pjOpen: Object.assign({}, pjOpen, { [f.id]: !pjOpen[f.id] }) }),
-      items: f.items.map((it) => ({
+      items: fx.reales.map((it) => ({
         title: it.title, cls: it.id === selId && projSel ? 'pj-item on' : 'pj-item', current: it.id === selId && projSel ? 'page' : 'false',
         onOpen: () => this.ir({ view: 'projects', article: null, pjSel: it.id })
       }))
-    }));
+    }; });
     const dr = opened ? infoOf(opened.id, opened.tid) : null;
     const legend = T.filter((t) => visible.indexOf(t.id) === -1).map((t) => ({
       ...shape(t),
