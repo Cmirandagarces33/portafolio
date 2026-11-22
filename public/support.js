@@ -123,7 +123,7 @@
     // Bloque estático (ver cargarEstaticos): su contenido lo gestiona su propio código, no la plantilla.
     if (oldEl.hasAttribute('data-estatico')) return;
 
-    if (oldEl.localName === 'input') {
+    if (oldEl.localName === 'input' || oldEl.localName === 'textarea') {
       var want = newEl.getAttribute('value') || '';
       if (oldEl.value !== want) oldEl.value = want;
     }
