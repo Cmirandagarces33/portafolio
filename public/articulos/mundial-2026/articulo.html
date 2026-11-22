@@ -2186,7 +2186,7 @@ Sudamérica" data-x="95" data-y="35.65"><span class="sc-interp"></span></div><di
   setTimeout(spy, 60);
 })();
 </script><script>(function(){
- // Fotos de la columna derecha: grupos durante la introducción; archivos desde "Los datos" hasta que empieza el código.
+ // Fotos de la columna derecha: grupos durante la introducción; archivos en "Los datos", hasta llegar a "Las variables".
  var cc=document.querySelector('.articulo-contenido .codecol'); if(!cc) return;
  var grupos=cc.querySelector('[data-panel="grupos"]'), archivos=cc.querySelector('[data-panel="archivos"]');
  var art=document.getElementById('article-body'), raf=0;
@@ -2194,10 +2194,10 @@ Sudamérica" data-x="95" data-y="35.65"><span class="sc-interp"></span></div><di
  function pintar(){
   raf=0;
   if(!art.isConnected){window.removeEventListener('scroll',pedir,true);window.removeEventListener('resize',pedir);return;}
-  var vh=window.innerHeight||800, entra=vh*0.62, mid=vh*0.5;
-  var intro=top('intro')<=entra, datos=top('datos')<=entra, codigo=top('faltantes')<=mid;
+  var vh=window.innerHeight||800, entra=vh*0.62;
+  var intro=top('intro')<=entra, datos=top('datos')<=entra, variables=top('variables')<=entra;
   grupos.style.opacity=(intro&&!datos)?'1':'0';
-  archivos.style.opacity=(datos&&!codigo)?'1':'0';
+  archivos.style.opacity=(datos&&!variables)?'1':'0';
  }
  function pedir(){if(!raf)raf=requestAnimationFrame(pintar);}
  window.addEventListener('scroll',pedir,true);window.addEventListener('resize',pedir);setTimeout(pintar,60);
