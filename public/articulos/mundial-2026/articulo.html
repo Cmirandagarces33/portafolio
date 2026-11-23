@@ -2186,7 +2186,7 @@ Sudamérica" data-x="95" data-y="35.65"><span class="sc-interp"></span></div><di
   setTimeout(spy, 60);
 })();
 </script><script>(function(){
- // Fotos de la columna derecha: grupos durante la introducción; archivos en "Los datos", hasta llegar a "Las variables".
+ // Fotos de la columna derecha: grupos durante la introducción; archivos en "Los datos" y hasta casi la mitad de "Las variables".
  var cc=document.querySelector('.articulo-contenido .codecol'); if(!cc) return;
  var grupos=cc.querySelector('[data-panel="grupos"]'), archivos=cc.querySelector('[data-panel="archivos"]');
  var art=document.getElementById('article-body'), raf=0;
@@ -2195,7 +2195,8 @@ Sudamérica" data-x="95" data-y="35.65"><span class="sc-interp"></span></div><di
   raf=0;
   if(!art.isConnected){window.removeEventListener('scroll',pedir,true);window.removeEventListener('resize',pedir);return;}
   var vh=window.innerHeight||800, entra=vh*0.62;
-  var intro=top('intro')<=entra, datos=top('datos')<=entra, variables=top('variables')<=entra;
+  var vt=top('variables'), ft=top('faltantes');
+  var intro=top('intro')<=entra, datos=top('datos')<=entra, variables=(vt+0.45*(ft-vt))<=entra;
   grupos.style.opacity=(intro&&!datos)?'1':'0';
   archivos.style.opacity=(datos&&!variables)?'1':'0';
  }
